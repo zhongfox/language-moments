@@ -8,7 +8,7 @@ REPL: read–eval–print loop,
 
 * Javascript
 
-  * chrome 自带`开发者工具`>`Console`
+  * chrome: `开发者工具`>`Console`
 
   * Node.js 自带REPL: `node`
 
