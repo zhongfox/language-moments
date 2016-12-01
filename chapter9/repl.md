@@ -18,7 +18,7 @@ REPL: read–eval–print loop,
 
 * Java
 
-  * [java-repl](http://github.com/albertlatacz/java-repl)
+  * 第三方扩展: [java-repl](http://github.com/albertlatacz/java-repl)
 
     MacOS 可以通过brew安装: `brew install javarepl`
 
@@ -26,5 +26,5 @@ REPL: read–eval–print loop,
 
 * Go
 
-  [gore](https://github.com/motemen/gore)
+  第三方扩展: [gore](https://github.com/motemen/gore)
 
