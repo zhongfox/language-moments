@@ -33,4 +33,7 @@
         * [8.2.2 标准库](chapter8/biaozhunku.md)
         * [8.2.3 导入包](chapter8/daorubao.md)
         * [8.2.4 执行顺序](chapter8/zhixingshunxu.md)
+* [9. 工具](chapter9/README.md)
+    * [9.1 REPL](chapter9/repl.md)
+    * [9.2 静态分析](chapter9/static_analysis.md)
 
