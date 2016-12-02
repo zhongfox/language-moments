@@ -18,6 +18,7 @@
     * [4.2 注释](chapter4/zhushi.md)
     * [4.3 自增自减](chapter4/zizengzijian.md)
     * [4.4 遍历](chapter4/bianli.md)
+    * [4.5 编码风格](chapter4/style_guide.md)
 * [5. 函数](chapter5/README.md)
     * [5.1 函数比较](chapter5/hanshubijiao.md)
 * [6. 异常处理](chapter6/README.md)
