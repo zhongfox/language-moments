@@ -2,17 +2,27 @@
 
 > 榜样很重要!
 
-* Ruby
+---
 
-  ruby社区通用编码风格指南: [ruby-style-guide](https://github.com/bbatsov/ruby-style-guide)
+### Ruby
 
-  Rails编码风格指南: [rails-style-guide](https://github.com/bbatsov/rails-style-guide)
+ruby社区通用编码风格指南: [ruby-style-guide](https://github.com/bbatsov/ruby-style-guide)
 
-* Javascript
+Rails编码风格指南: [rails-style-guide](https://github.com/bbatsov/rails-style-guide)
 
-* Lua
+---
 
-* Java
+### Javascript
 
-* Go
+---
+
+### Lua
+
+---
+
+### Java
+
+---
+
+### Go
 
