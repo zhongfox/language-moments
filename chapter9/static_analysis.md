@@ -26,6 +26,24 @@
 
 #### [rubocop](https://github.com/bbatsov/rubocop)
 
+官方文档: [rubocop](http://rubocop.readthedocs.io/en/latest/), 主要的风格指导是基于社区流行的[ruby-style-guide](https://github.com/bbatsov/ruby-style-guide)
+
+如果对于rubocop的规则不太熟悉, rubocop执行代码时的报错信息, 不太容易和相关style对应起来, 一个技巧是在[rubydoc Rubocop](http://www.rubydoc.info/gems/rubocop/)上搜索报错信息, 比如在google上利用site搜索:
+
+> Missing top-level class documentation comment site:www.rubydoc.info
+
+相关使用技巧:
+
+* 自动修复(Auto-correct offenses): `-a, --auto-correct`
+
+* 默认配置文件: <https://github.com/bbatsov/rubocop/blob/master/config/default.yml>
+
+* 自定义配置:
+
+  本项目下如果`.rubocop.yml` 存在, 将作为自定义配置文件
+
+  也可以通过参数指定配置文件: `-c, --config FILE`
+
 ---
 
 ### Javascript

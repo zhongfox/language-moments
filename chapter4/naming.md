@@ -1,7 +1,34 @@
 # 4.1 Naming conventions
 
-|          | Ruby            | Javascript | Lua             | Java      | Go        |
-|----------|-----------------|------------|-----------------|-----------|-----------|
-| 命名约定 | underscore_case | camelCase  | underscore_case | camelCase | camelCase |
+|              | Ruby            | Javascript | Lua             | Java      | Go        |
+|--------------|-----------------|------------|-----------------|-----------|-----------|
+| 通用命名约定 | underscore_case | camelCase  | underscore_case | camelCase | camelCase |
 
 虽然各语言没有强制要求以上命名约定, 但是用户程序命令, 和语言内置函数/标准库的函数和变量命名格式保持一致, 是一种不错的最佳实践
+
+### Ruby
+
+* 大写字母开头的标识符是常量 (对常量的修改只有警告, 没有错误)
+* 多单词常量有两种写法: `LikeThis` `LIKE_THIS`
+* 非常量的多单词标识符使用`underscore_case`命名
+* 以`$`开头的变量是全局变量
+* 以`@`开头的变量是实例变量
+* 以`@@`开头的变量是类变量
+* 作为惯例, 以布尔值为返回值的方法名, 以`?`结尾
+* 以`=`结尾的方法, 在调用时可以省略`=`, 通常用于定义赋值操作
+
+---
+
+### Javascript
+
+---
+
+### Lua
+
+---
+
+### Java
+
+---
+
+### Go

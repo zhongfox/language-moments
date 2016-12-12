@@ -46,6 +46,24 @@
   * 「function」: 如果值是函数(Function类型)
   * 「symbol」: 如果值是符号类型(ES6 Symbol类型)
 
+  `typeof` 对primitive类型数据很有用, 但是对于Object想要进一步检测类型, 需要用到`instanceof`
+
+* `instanceof`操作符
+
+  `obj instanceof SomeClass` 是用于判断obj是否是SomeClass的实例, 如果obj是SomeClass的直接实例或者间接实例, 都返回true
+
+  * `引用值 instanceof Object` 始终是true
+  * `primitive值 instanceof AnyClass` 始终是false
+
+  但是要注意primitive值和primitive 对应的对象是不一样的:
+
+  ```javascript
+  > 'hi' instanceof String
+  false
+  > (new String('hi')) instanceof String
+  true
+  ```
+
 #### undefined 和 null
 
 * null 和 undefined 是语言设计上的历史包袱, 时至今日, null和undefined基本是同义的，使用上有一些细微的差别:
