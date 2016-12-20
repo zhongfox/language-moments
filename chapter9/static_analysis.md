@@ -23,6 +23,22 @@
 * Duplication: 代码重复
 * Smells: 代码的坏味道, 主要基于Reek, Flay, Flog
 
+#### [Flog](http://ruby.sadi.st/Flog.html)
+
+Flog计算代码的复杂度, 并通过比较易读的方式展示出来, 分支(调用),赋值,魔数等有不同的分值, 并且不同的方法调用也有不同的分值.
+
+一个印象示例:
+
+```ruby
+class Test
+  def blah         # 11.2 =
+    a = eval "1+1" # 1.2 + 6.0 +
+    if a == 2 then # 1.2 + 1.2 + 0.4 +
+      puts "yay"   # 1.2
+    end
+  end
+end
+```
 
 #### [rubocop](https://github.com/bbatsov/rubocop)
 
@@ -40,9 +56,31 @@
 
 * 自定义配置:
 
-  本项目下如果`.rubocop.yml` 存在, 将作为自定义配置文件
+  * 本项目下如果`.rubocop.yml` 存在, 将作为自定义配置文件
+  * 如果本项目下没有配置文件, 将自动寻找家目录下`.rubocop.yml`作为配置文件
+  * 也可以通过参数指定配置文件: `-c, --config FILE`
 
-  也可以通过参数指定配置文件: `-c, --config FILE`
+常见的错误解释:
+
+* [Metrics/AbcSize](http://rubocop.readthedocs.io/en/latest/cops_metrics/#metricsabcsize)
+
+  `Assignment Branch Condition size for {具体方法} is too high. [实际值/配置值, 默认15]`
+
+  关于[AbcMetric](http://wiki.c2.com/?AbcMetric)
+
+  > Assignment -- 明确地将一个值传递给变量, e.g. = *= /= %= += <<= >>= &= |= ^= >>>= ++ --
+
+  > Branch -- 明确地将当前程序执行权转移出当前scope -- a function call, class method call, or new operator
+
+  > Condition -- 一次逻辑/布尔值测试, == != <= >= < > else case default try catch ? and unary conditionals.
+
+  > |ABC| = sqrt((A*A)+(B*B)+(C*C))
+
+* [Style/GuardClause](http://rubocop.readthedocs.io/en/latest/cops_style/#styleguardclause)
+
+  `Use a guard clause instead of wrapping the code inside a conditional expression`
+
+  使用卫语句将异常/错误先行处理, 用以减少使用条件表达式的使用
 
 ---
 
@@ -99,16 +137,11 @@ module.exports = {
 * [利用 ESLint 检查代码质量](http://morning.work/page/maintainable-nodejs/getting-started-with-eslint.html)
 
 ---
+### Go
+
+---
 
 ### Lua
-
----
-
-### Java
-
----
-
-### Go
 
 ---
 
@@ -181,3 +214,42 @@ let g:syntastic_check_on_wq = 0
 2. `:help syntastic-checkers` 命令无效
 
    需要先执行`:helptags ~/.vim/bundle/syntastic/doc`, 参见[help syntastic-checkers error](https://groups.google.com/forum/#!topic/vim-syntastic/axAbKWRVN4Q)
+
+---
+
+### VIM 异步语法检查插件[ALE](https://github.com/w0rp/ale)
+
+* 需要升级vim8, 或者使用NeoVim.
+* ale 利用vim8支持的`job_control`进行异步语法检测
+* 可以配置的检测时机: 内容动态修改时, 文件打开时, 文件保存时
+
+* 自动读取各语言检测器用户配置文件:
+
+  `~/.eslintrc.js`
+
+  `~/.rubocop.yml`
+
+#### 关键配置参数
+
+* 通过`help ale-options` 查看所有支持的配置说明
+
+* 修改时机配置
+
+  ```vim
+  "以下是默认值
+  let g:ale_lint_on_save = 0
+  let g:ale_lint_on_text_changed = 1
+  let g:ale_lint_on_enter = 1
+  ```
+
+* `g:ale_linters` 对各语言要使用的linter进行限制
+
+  比如限制js只是用eslint: `let g:ale_linters = {'javascript': ['eslint']}`
+
+  或者禁止js使用: `let g:ale_linters = {'javascript': []}`
+
+* 在错误提示之间跳转:
+  ```vim
+  nmap <silent> <C-k> <Plug>(ale_previous_wrap)
+  nmap <silent> <C-j> <Plug>(ale_next_wrap)
+  ```

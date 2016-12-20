@@ -1,6 +1,14 @@
 # 3.1 类型
 
-### Ruby
+|          | Ruby     | Javascript | Go       | Lua |
+|----------|----------|------------|----------|-----|
+| 类型系统 | 强类型   | 弱类型     | 强类型   |     |
+|          | 动态类型 | 动态类型   | 静态类型 |     |
+|          |          |            |          |     |
+
+---
+
+### 1. Ruby
 
 * Object (一切皆为对象)
   * Numeric
@@ -14,25 +22,59 @@
   * NilClass
   * ...
 
+#### 立即值
+
+Ruby 是一门非常纯粹的面向对象的语言, 所有值都是对象, 没有基本类型(primitive)和对象类型的区别, 而且所有对象都是通过引用操作
+
+不过在Ruby中, **Fixnum**和**Symbol**对象实际上是立即值(immediate values), 而不是引用, 它们没有可变方法, 所有它们是**不可变**的, 同时立即值也不能有单键方法
+
 #### 类型判断:
 
-`Object#class`
+* 获取类型: `Object#class`
+* 直接类型判断: `Kernel#instance_of?`
+* 间接类型判断:`Kernel#kind_of?` `Kernel#is_a?`
+
+* `Class ===` TODO
 
 ---
 
-### Javascript
+### 2. Javascript
 
 * primitive:
 
-  * Undefined: 唯一的值是`undefined`
-  * Null
-  * Boolean
-  * Number
-  * String
+  * undefined: 唯一的值是`undefined`
+  * null
+  * boolean
+  * number
+  * string
 
   * ES6增加一个: Symbol
 
-* 引用类型: Object(Array, Function, ...)
+* 引用类型: Object(Array, Function, Date, RegExp, ...)
+
+* 基本包装类型: String, Number, Boolean
+
+  基本包装类型属于引用类型
+
+  设计原本: primitive值不是对象, 应该是没有方法调用的, 不过为了使用方便, 在访问的**读取**模式下, 后台自动创建了primitive值对应的基本包装引用类型, 使其可以使用方法, 在使用后立即销毁:
+
+  ```javascript
+  var s1 = "hello javascript";
+  var s2 = s1.substring(2);
+
+  //后台完成类似这样的工作:
+  var s1 = new String("hello javascript");//这样s1就有方法可用
+  var s2 = s1.substring(2);
+  s1 = null;
+  ```
+
+  因为自动销毁, 对自动基本包装类型设置属性是无效的:
+
+  ```javascript
+  var s1 = "hello javascript";
+  s1.color = "red"; //随之销毁
+  console.log(s1.color); //undefined
+  ```
 
 #### 类型判断
 
@@ -55,7 +97,7 @@
   * `引用值 instanceof Object` 始终是true
   * `primitive值 instanceof AnyClass` 始终是false
 
-  但是要注意primitive值和primitive 对应的对象是不一样的:
+  但是要注意primitive值和包装类型对象是不一样的:
 
   ```javascript
   > 'hi' instanceof String
@@ -96,9 +138,7 @@
 
 * undefined和null在逻辑运算语句中，都会被自动转为false
 
-* 不严格比较`==`, 会报告两者相等:
-
-  `undefined == null` true
+* 不严格比较`==`, 会报告两者相等: `undefined == null #true`
 
 * typeof
 
@@ -109,20 +149,7 @@
 
 ---
 
-### Lua
-
-nil, boolean, number, string, userdata, function, thread, table
-
----
-
-### Java
-
-* primitive(变量存的是变量实际的值): 4整2浮1 char 1 boolean
-* 引用类型
-
----
-
-### Go
+### 3. Go
 
 * 整数: int, unit, int16, uint16, int32, uint32, int64, uint64
 * 浮点数: float32, float64
@@ -140,4 +167,32 @@ nil, boolean, number, string, userdata, function, thread, table
     * slice
     * channel
 
+#### 未命名类型
 
+与有明确标识符的bool, int, string等相比, array, slice, map, channel等类型与具体的元素类型或长度相关, 叫做**未命名类型**(unnamed type), 使用`type`可以使其新增为**命名类型**(named type)
+
+可以这样理解: 未命名类型其实不是完整的类型, 或者不是类型, 只有存储的元素长度或者类型确定, 才叫做真正的类型
+
+具有相同声明的未命名类型, 被认为是同一类型
+
+
+
+
+---
+
+### 4. Lua
+
+nil, boolean, number, string, userdata, function, thread, table
+
+
+---
+
+<!--
+TODO
+
+### Java
+
+* primitive(变量存的是变量实际的值): 4整2浮1 char 1 boolean
+* 引用类型
+
+-->
