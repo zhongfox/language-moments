@@ -24,6 +24,7 @@
     * [4.6 聚合与展开](chapter4/spread_rest.md)
 * [5. 函数](chapter5/README.md)
     * [5.1 函数比较](chapter5/function.md)
+    * [5.2 求值策略](chapter5/evaluation_strategy.md)
 * [6. 异常处理](chapter6/README.md)
 * [7. 面向对象](chapter7/README.md)
     * [7.1 方法](chapter7/method.md)
