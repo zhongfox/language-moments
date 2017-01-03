@@ -4,12 +4,57 @@
 |----------|-------------------------------------|--------------------------------------------------------------------|--------------|--------------------|
 | 作用域   | `class` `module` `def` 开启新作用域 | ES5: 函数开启闭包作用域<br>ES6: 增加`let` `const` 遵循块`{}`作用域 | 块作用域`{}` | 函数开启闭包作用域 |
 | 闭包     | 不支持                              | 支持                                                               | 支持         | 支持               |
-| 全局变量 | 以`$`开头                           | 全局执行环境下的变量                                               |              |                    |
+| 全局变量 | 以`$`开头                           | 全局执行环境下的变量                                               | 没有         |                    |
 
 ---
 
 ### 1. Ruby
 
+* `class` `module` `def` 会开启新的变量作用域
+* 利用block实现扁平化作用域
+* 不支持闭包
+
+#### 扁平化作用域
+
+与`class` `module` `def`对应的通过传递block来扁平化作用域的办法有：`Class.new` `Module.new` `Module#define_method`
+
+其他常见的扁平化作用域还有：`Object#instance_eval` `Module#class_eval` `Module#module_eval`
+
+可以使用多个代码块来共享一个局部变量:
+
+```ruby
+lambda {
+  share = 10
+
+  Kernel.send :define_method, :increase_a do
+    share += 1
+  end
+
+  Kernel.send :define_method, :show_a do
+    puts share
+  end
+}.call
+```
+
+这和ES5最佳实践中，每个文件都定义一个马上运行的匿名函数如出一辙：
+
+```javascript
+(function () {
+  var share = 10;
+
+  function increaseA()  {
+    share++;
+  }
+
+  function showA()  {
+    alert(share);
+  }
+
+  window.increaseA = increaseA;
+  window.showA = showA
+
+} ());
+```
 
 #### 全局变量
 
@@ -41,9 +86,54 @@
 * 不声明而直接初始化变量是一个常见的错误做法, 建议在初始化变量前, 一定要进行声明.
 * 变量需要向上搜索作用域链, 因此, 访问局部变量比访问全局变量快, 应该优先使用.
 
+#### 全局变量
+
+全局执行环境, 在浏览器中是window对象, 在Node.js中是global对象.
+
+#### 闭包
+
+TODO
+
 ---
 
 ### 3. Go
+
+Go 支持块作用域, 同时也实现了函数闭包
+
+```go
+if true {
+  num := 8          // 内部作用域内的变量
+  fmt.Println(num)  // 8
+}
+// 外部作用域, 无法读取
+fmt.Println(num)   // undefined: num
+```
+
+```go
+num := 9
+
+if true {
+  num := 8         // 内部作用域内的独立声明变量
+  fmt.Println(num) // 8
+}
+// 外部作用域读取外层变量, 互不干扰
+fmt.Println(num)   // 9
+```
+
+```go
+num := 9
+
+if true {
+  num = 8         // 内部作用域可以读写外部变量
+  fmt.Println(num) // 8
+}
+// 外层变量被改变
+fmt.Println(num)   // 8
+```
+
+#### 闭包
+
+Go 语言支持闭包, 和javascript很像, 例子就省了.
 
 ---
 
