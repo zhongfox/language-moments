@@ -1,6 +1,13 @@
 {
-  "plugins": ["expandable-chapters"],
+  "plugins": [
+    "expandable-chapters",
+    "image-captions",
+    "github"
+  ],
   "pluginsConfig": {
-    "expandable-chapters":{}
+    "expandable-chapters":{},
+    "github": {
+      "url": "https://github.com/zhongfox/language-moments"
+    }
   }
 }
