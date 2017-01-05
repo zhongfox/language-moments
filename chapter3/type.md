@@ -1,10 +1,8 @@
 # 3.1 类型
 
-|               | Ruby                       | Javascript                | Go       | Lua  |
-|---------------|----------------------------|---------------------------|----------|------|
-| [类型系统]()  | 强类型                     | 弱类型                    | 强类型   |      |
-|               | 动态类型                   | 动态类型                  | 静态类型 |      |
-| Value Content | 引用类型对象<br>立即值对象 | 引用类型对象<br>primitive | 值类型   | TODO |
+|                  | Ruby                       | Javascript                | Go       | Lua      |
+|------------------|----------------------------|---------------------------|----------|----------|
+| Value Content    | 引用类型对象<br>立即值对象 | 引用类型对象<br>primitive | 值类型   | TODO     |
 
 ---
 
@@ -80,33 +78,36 @@ console.log(s1.color); //undefined
 
 #### 类型判断
 
-* `typeof` 操作符, 而不是函数, 有以下7种返回值, 要注意和以上类型并非一一对应:
+##### typeof
 
-  * 「undefined」: 如果值是undefined, 或者是根本没有声明的变量
-  * 「boolean」: 如果值是true或者false(Boolean类型)
-  * 「string」: 如果值是字符串(String类型)
-  * 「number」: 如果值是数字(Number类型)
-  * 「object」: 如果值是Object, 但不是Function, 或者值是null
-  * 「function」: 如果值是函数(Function类型)
-  * 「symbol」: 如果值是符号类型(ES6 Symbol类型)
+`typeof`操作符, 而不是函数, 有以下7种返回值, 要注意和以上类型并非一一对应:
 
-  `typeof` 对primitive类型数据很有用, 但是对于Object想要进一步检测类型, 需要用到`instanceof`
+* 「undefined」: 如果值是undefined, 或者是根本没有声明的变量
+* 「boolean」: 如果值是true或者false(Boolean类型)
+* 「string」: 如果值是字符串(String类型)
+* 「number」: 如果值是数字(Number类型)
+* 「object」: 如果值是Object, 但不是Function, 或者值是null
+* 「function」: 如果值是函数(Function类型)
+* 「symbol」: 如果值是符号类型(ES6 Symbol类型)
 
-* `instanceof`操作符
+`typeof` 对primitive类型数据很有用, 但是对于Object想要进一步检测类型, 需要用到`instanceof`
 
-  `obj instanceof SomeClass` 是用于判断obj是否是SomeClass的实例, 如果obj是SomeClass的直接实例或者间接实例, 都返回true
+##### instanceof
 
-  * `引用值 instanceof Object` 始终是true
-  * `primitive值 instanceof AnyClass` 始终是false
+`instanceof` 同样是操作符, `obj instanceof SomeClass` 是用于判断obj是否是SomeClass的实例, 如果obj是SomeClass的直接实例或者间接实例, 都返回true
 
-  但是要注意primitive值和包装类型对象是不一样的:
+* `引用值 instanceof Object` 始终是true
+* `primitive值 instanceof AnyClass` 始终是false
 
-  ```javascript
-  > 'hi' instanceof String
-  false
-  > (new String('hi')) instanceof String
-  true
-  ```
+但是要注意primitive值和包装类型对象是不一样的:
+
+```javascript
+> 'hi' instanceof String
+false
+> (new String('hi')) instanceof String
+true
+```
+
 ---
 
 ### 3. Go
@@ -153,11 +154,4 @@ TODO
 
 类似javascript 也有基本包装类型
 
-TODO 类型系统
-
-
 -->
-
-
-
-
