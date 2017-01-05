@@ -54,6 +54,8 @@ Kernel还定义了四个和类名相同的转换函数: `Kernel#Array` `Kernel#F
 
 *  String, Array, Hash 的实例方法相等运算`==`也类似一种week类型转换, 如果左右值是同一类型则进行常规比较, 否则, 会检测右值是否定义了`to_str` `to_ary` `to_hash`, 如果存在, 则使用方法调用后的结果再进行比较.
 
+* Numeric之间使用`==`比较, 会尝试进行简单类型转换, 如`1 == 1.0`为true
+
 ---
 
 ### 2. Javascript
