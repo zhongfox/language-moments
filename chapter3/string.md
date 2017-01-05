@@ -1,64 +1,93 @@
-# 3.8 字符串
+# 3.9 字符串
 
-|            | Ruby                                                                                                      | Javascript       | Lua            | Java   | Go                                           |
-|------------|-----------------------------------------------------------------------------------------------------------|------------------|----------------|--------|----------------------------------------------|
-| 存储       | 1.8: 字节序列<br>1.9字符序列                                                                              | UCS-2            |                |        | Unicode                                      |
-| 可变性     | 可变<br>`str[-1]='hi'`                                                                                    | 不可变           | 不可变         | 不可变 | 不可变                                       |
-| 字面量     | 单引号, 双引号<br>单双有别, 双引号支持模板                                                                | 单引号, 双引号   | 单引号, 双引号 | 双引号 | 双引号                                       |
-| 长度       | 字节: `String#bytesize`<br>字符:`String#length` `String#size`                                             | 字符: `len(str)` |                |        | 字节: `len(str)`<br>字符: `len([]rune(str))` |
-| 遍历       | 字节:String#each_byte<br>字符:String#each_char<br>字符码:String#each_codepoint<br>行遍历:String#each_line |                  |                |        | 字节: `for i`<br>字符: `for range`           |
-| 索引访问   | 支持: `str[1]` 倒叙索引: `str[-1]`                                                                        |                  |                |        | 支持: `str[1]`                               |
-| 索引越界   | nil                                                                                                       |                  |                |        |                                              |
-| 片段       | 返回全新字符串:<br>`str[start, len]`<br>`str(start..end)`                                                 |                  |                |        | 切片语法: `str[start:end]` 左闭右开          |
-| 拼接       | 1. `str1+str2`<br>2. 模板字符串内插                                                                       |                  |                |        | `str1 + str2`                                |
-| to 数组    | String#split(pattern=nil, [limit])                                                                        |                  |                |        | 字节: `byte(str)`<br>字符: `[]rune(str)`     |
-| from 数组  | Array#join(separator=$,)                                                                                  |                  |                |        | `string(byte_or_rune_array)`                 |
-| 字符串模板 | 支持                                                                                                      | ES6支持          |                |        | 支持                                         |
+|            | Ruby                                                                                   | Javascript                                                 | Go                                           | Lua                                                           |
+|------------|----------------------------------------------------------------------------------------|------------------------------------------------------------|----------------------------------------------|---------------------------------------------------------------|
+| 存储       | 1.8 字节序列<br>1.9 字符序列                                                           | UCS-2                                                      | Unicode                                      |                                                               |
+| 可变性     | 可变<br>`str[-1]='hi'`                                                                 | 不可变                                                     | 不可变                                       | 不可变                                                        |
+| 字面量     | 单引号, 双引号<br>单双有别, 双引号支持模板                                             | 单引号, 双引号                                             | 双引号                                       | 单引号, 双引号                                                |
+| 长度       | 字节: `bytesize`<br>字符:`length` `size`                                               | 字符: length属性                                           | 字节: `len(str)`<br>字符: `len([]rune(str))` |                                                               |
+| 遍历       | 字节: `each_byte`<br>字符:`each_char`<br>字符码:`each_codepoint`<br>行遍历:`each_line` | 字符: `for i`<br>ES6: `for of`                             | 字节: `for i`<br>字符: `for range`           |                                                               |
+| 索引访问   | `str[i]`<br>倒序索引: `str[-1]`                                                        | `str[i]` `charAt[i]`<br>ES6: `at(i)`                       | `str[i]`                                     | string.sub(str,start,end)左闭右闭<br>索引从0开始,支持负数倒序 |
+| 索引越界   | nil                                                                                    | undefined                                                  | panic                                        | 空字符串                                                      |
+| 片段       | 返回全新字符串:<br>`str[start, len]`<br>`str(start..end)`                              | `substring(start,end)左闭右开`<br>`substr(start[,length])` | 切片语法: `str[start:end]` 左闭右开          |                                                               |
+| 拼接       | `str1+str2`<br>模板字符串内插<br>`String#<<`                                           | `str1+str2`<br>`concat(str1,...)`                          | `str1 + str2`                                |                                                               |
+| to 数组    | `split(pattern=nil, [limit])`                                                          | `split([separator[, limit]])`                              | 字节: `byte(str)`<br>字符: `[]rune(str)`     |                                                               |
+| from 数组  | `Array#join(separator=$,)`                                                             | `Array#join([separator])`                                  | `string(byte_or_rune_array)`                 |                                                               |
+| 字符串模板 | 支持                                                                                   | ES6支持                                                    | 支持                                         | TODO                                                          |
 
 ---
 
-### Ruby
+### 1. Ruby
 
-* 字符串可变
+#### 字符串可变
 
-  > str[-1] = 'hi'  
-  > str[2, 5] = 'hello'  
-  > str[5, 6] = '' //相当于删除
+```ruby
+str[-1] = 'hi'
+str[2, 5] = 'hello'
+str[5, 6] = '' //相当于删除
+```
 
-  每次遇到一个字符串字面量, 都会新建一个字符串对象
+每次遇到一个字符串字面量, 都会新建一个字符串对象
 
-  最佳实践: 减少在循环中使用字符串字面量
+**最佳实践**: 减少在循环中使用字符串字面量
 
-* 单双有别
+#### 单双有别
 
-  字符串字面量同时支持单引号和双引号, 双引号支持模板字符串, 双引号不支持
+字符串字面量同时支持单引号和双引号, 双引号支持模板字符串, 双引号不支持
 
-  最佳实践: 在不需要模板字符串的地方, 始终使用单引号
+**最佳实践**: 在不需要模板字符串的地方, 始终使用单引号
 
 
-* 拼接
+#### 拼接
 
-  * `str + other_str → new_str`: 不会自动转换类型, 要求操作数都是字符串, 返回新对象
-  * 模板字符串内测: 会自动调用`to_s`, 不创建新对象, 效率更高
-  * `str << integer → str` 数字将解释为码点  
-    `str << obj → str` 拼接前会自动转换右值
-  * `str * integer → new_str`
+* `str + other_str → new_str`: 不会自动转换类型, 要求操作数都是字符串(体现了Ruby的强类型), 返回新对象
+* 模板字符串内插: 会自动调用`to_s`, 不创建新对象, 效率更高
+* `str << integer → str` 数字将解释为码点  
+  `str << obj → str` 拼接前会自动转换右值
+* `str * integer → new_str`
 
-### Javascript
+**最佳实践**: 优先使用模板字符串
 
-ES6 对js的字符串进行了扩展支持, 参见[Unicode与JavaScript详解](http://www.ruanyifeng.com/blog/2014/12/unicode.html)
+---
 
-### Lua
+### 2. Javascript
 
-### Java
+ES6 对字符串进行了很多扩展.
 
-### Go
+#### 字符串模板
+
+```javascript
+`${start}, my name is ${getName()}, ${conf.fav} is my favourite`
+```
+
+#### 遍历器接口
+
+```javascript
+for (let char of '语言的学习') {
+  console.log(char);
+}
+```
+
+---
+
+
+### 3. Go
 
 * 加法拼接字符串, 每次需要重新分配内存, 在构建超大字符串时, 性能低下
 
   优化: 使用`strings.Join(a []string, sep string)` 会一次性计算并分配需要的内存
 
 ---
+
+### 4. Lua
+
+TODO
+
+---
+
+
+<!--
+
 
 ## 字符串模板
 
@@ -136,6 +165,7 @@ ES6 对js的字符串进行了扩展支持, 参见[Unicode与JavaScript详解](h
 
 ---
 
+
 ## 字符编码
 
 # 编码
@@ -151,6 +181,7 @@ ES6 对js的字符串进行了扩展支持, 参见[Unicode与JavaScript详解](h
 <http://www.alloyteam.com/2016/12/javascript-has-a-unicode-sinkhole/>
  <http://www.jeffjade.com/2016/11/24/116-JavaScript-string-operation>
 
+ES6 对js的字符串进行了扩展支持, 参见[Unicode与JavaScript详解](http://www.ruanyifeng.com/blog/2014/12/unicode.html)
 ---
 
 ### Lua
@@ -163,4 +194,4 @@ ES6 对js的字符串进行了扩展支持, 参见[Unicode与JavaScript详解](h
 
 ### Go
 
-
+-->
