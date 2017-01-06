@@ -111,6 +111,7 @@ x + y # 6
 
 ### 参考资料
 
+* [Type_system](https://en.wikipedia.org/wiki/Type_system)
 * [Ruby is dynamically AND strongly typed](http://www.rubyfleebie.com/ruby-is-dynamically-and-strongly-typed/)
 * [弱类型、强类型、动态类型、静态类型语言的区别是什么？](https://www.zhihu.com/question/19918532)
 
