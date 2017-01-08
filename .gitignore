@@ -14,4 +14,7 @@ _book
 *.epub
 *.mobi
 *.pdf
+
+*.swo
+
 npm-debug.log
