@@ -24,6 +24,13 @@
 
 ---
 
+### Go
+
+第三方扩展: [gore](https://github.com/motemen/gore)
+
+---
+
+<!--
 ### Java
 
 * 第三方扩展: [java-repl](http://github.com/albertlatacz/java-repl)
@@ -32,9 +39,4 @@
 
 * JAVA9: jshell
 
----
-
-### Go
-
-第三方扩展: [gore](https://github.com/motemen/gore)
-
+-->
