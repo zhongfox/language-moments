@@ -1,44 +1,6 @@
 # 9.2 静态分析
 
-### Ruby
-
-#### [Rubycritic](https://github.com/whitesmith/rubycritic)
-
-主要特性:
-
-* 使用第三方静态分析器:  [Reek](https://github.com/troessner/reek), [Flay](https://github.com/seattlerb/flay) 和 [Flog](https://github.com/seattlerb/flog)
-* 同时支持命令行和web图表化展示分析结果
-* 可以总览你的项目,并且可以对代码打分(百分制)
-* 根据各自的坏味道数量建立文件索引
-* 可以查看具体的类文件中的代码质量问题
-
-主要分析[维度](https://github.com/whitesmith/rubycritic/blob/master/docs/core-metrics.md):
-
-* Score: 代表所有分析文件的总分, 0~100分区间
-* Churn: 文件修改次数, 基于版本控制系统, 如git的commit次数
-* Complexity: 文件复杂度, 目前计算的维度主要基于`赋值`,`分支`和`方法调用`
-* Rating: A~F的6个等级, A最好, 通常讲, A,B是比较好的, C可以视为警告, D和F是需要修复的  
-  Rating是基于Cost计算的, 所谓Cost是和文件的smell和Complexity相关的  
-  (RubyCritic's rating system was inspired by Code Climate's)
-* Duplication: 代码重复
-* Smells: 代码的坏味道, 主要基于Reek, Flay, Flog
-
-#### [Flog](http://ruby.sadi.st/Flog.html)
-
-Flog计算代码的复杂度, 并通过比较易读的方式展示出来, 分支(调用),赋值,魔数等有不同的分值, 并且不同的方法调用也有不同的分值.
-
-一个印象示例:
-
-```ruby
-class Test
-  def blah         # 11.2 =
-    a = eval "1+1" # 1.2 + 6.0 +
-    if a == 2 then # 1.2 + 1.2 + 0.4 +
-      puts "yay"   # 1.2
-    end
-  end
-end
-```
+### 1. Ruby
 
 #### [rubocop](https://github.com/bbatsov/rubocop)
 
@@ -57,10 +19,14 @@ end
 * 自定义配置:
 
   * 本项目下如果`.rubocop.yml` 存在, 将作为自定义配置文件
-  * 如果本项目下没有配置文件, 将自动寻找家目录下`.rubocop.yml`作为配置文件
+  * 如果本项目下没有配置文件, 将自动寻找home目录下`.rubocop.yml`作为配置文件
   * 也可以通过参数指定配置文件: `-c, --config FILE`
 
 常见的错误解释:
+
+* `Useless assignment to variable -`
+
+  未使用的变量
 
 * [Metrics/AbcSize](http://rubocop.readthedocs.io/en/latest/cops_metrics/#metricsabcsize)
 
@@ -82,9 +48,72 @@ end
 
   使用卫语句将异常/错误先行处理, 用以减少使用条件表达式的使用
 
+* [Style/StringLiterals](http://rubocop.readthedocs.io/en/latest/cops_style/#stylestringliterals)
+
+  `Prefer single-quoted strings when you don't need string interpolation or special symbols`
+
+  在不需要表达式内插的场景下, 单引号比双引号高效
+
+* [Style/MutableConstant](http://rubocop.readthedocs.io/en/latest/cops_style/#stylemutableconstant)
+
+  `Freeze mutable objects assigned to constants.`
+
+  Ruby 中的常量是可以修改的, 除非加上`freeze`
+
+* [Style/ConditionalAssignment](http://rubocop.readthedocs.io/en/latest/cops_style/#styleconditionalassignment)
+  
+  `Use the return of the conditional for variable assignment and comparison`
+
+  对于if-else/case-when中, 对单一变量求值的情况, 改为整体赋值的语句
+
+* 一些命名的规范:
+
+ `Do not prefix reader method names with get_`
+
+ `Rename is_具体方法名? to 具体方法名?`.
+
 ---
 
-### Javascript
+#### [Rubycritic](https://github.com/whitesmith/rubycritic)
+
+主要特性:
+
+* 使用第三方静态分析器:  [Reek](https://github.com/troessner/reek), [Flay](https://github.com/seattlerb/flay) 和 [Flog](https://github.com/seattlerb/flog)
+* 同时支持命令行和web图表化展示分析结果
+* 可以总览你的项目,并且可以对代码打分(百分制)
+* 根据各自的坏味道数量建立文件索引
+* 可以查看具体的类文件中的代码质量问题
+
+主要分析[维度](https://github.com/whitesmith/rubycritic/blob/master/docs/core-metrics.md):
+
+* Score: 代表所有分析文件的总分, 0~100分区间
+* Churn: 文件修改次数, 基于版本控制系统, 如git的commit次数
+* Complexity: 文件复杂度, 目前计算的维度主要基于`Assignments`,`Branches`和`Calls`
+* Rating: A~F的6个等级, A最好, 通常讲, A,B是比较好的, C可以视为警告, D和F是需要修复的  
+  Rating是基于Cost计算的, 所谓Cost是和文件的smell和Complexity相关的  
+  (RubyCritic's rating system was inspired by Code Climate's)
+* Duplication: 代码重复
+* Smells: 代码的坏味道, 主要基于Reek, Flay, Flog
+
+#### [Flog](http://ruby.sadi.st/Flog.html)
+
+Flog计算代码的复杂度, 并通过比较易读的方式展示出来, 分支(调用), 赋值, 魔数等有不同的分值, 并且不同的方法调用也有不同的分值.
+
+一个印象示例:
+
+```ruby
+class Test
+  def blah         # 11.2 =
+    a = eval "1+1" # 1.2 + 6.0 +
+    if a == 2 then # 1.2 + 1.2 + 0.4 +
+      puts "yay"   # 1.2
+    end
+  end
+end
+```
+---
+
+### 2. Javascript
 
 #### [eslint](http://eslint.org/)
 
@@ -98,6 +127,7 @@ end
 
 安装:
 
+* 在具体项目中本地安装: `npm install eslint --save-dev`
 * 通过NPM全局安装: `npm install -g eslint`
 
 配置加载:
@@ -123,7 +153,7 @@ module.exports = {
 };
 ```
 
-* 每条规则有 3 个等级：off、warn和error。off表示禁用这条规则，warn表示仅给出警告，并不会导致检查不通过，而error则会导致检查不通过
+* 每条规则有 3 个等级：off, warn和error. off表示禁用这条规则, warn表示仅给出警告, 并不会导致检查不通过, 而error则会导致检查不通过
 * 规则的详细说明文档可以参考这里：[Rules - 规则](http://eslint.cn/docs/rules/)
 
 代码格式化:
@@ -137,13 +167,28 @@ module.exports = {
 * [利用 ESLint 检查代码质量](http://morning.work/page/maintainable-nodejs/getting-started-with-eslint.html)
 
 ---
-### Go
+
+### 3. Go
+
+Go语言常见的代码质量工具有[gofmt](https://golang.org/cmd/gofmt/), [golint](https://github.com/golang/lint), [go vet](https://golang.org/cmd/vet/)
+
+* gofmt 直接格式化源码, 它的标准基本是强制性的, 比如使用缩进时tab(width = 8)而不是space, 去掉行尾空白等等
+
+* golint 只是输出建议, 不格式化代码; 更关注编码风格上的问题; Golint 是在google内部使用的代码规范, 同时逐步和Go社区中的主流规范融合.
+
+* go vet: TODO
 
 ---
 
-### Lua
+### 4. Lua
+
+[luacheck](https://github.com/mpeterv/luacheck) 是lua的静态分析工具, 它可以检测一系列的编码风格问题, 如使用未定义的全局变量, 没有使用的局部变量, 访问未初始化的变量, 代码死区(unreachable code)等等, 且大部分是可以配置的.
 
 ---
+
+<!--
+
+TODO 独立或者移除
 
 ### VIM 语法检查插件Syntastic
 
@@ -253,3 +298,14 @@ let g:syntastic_check_on_wq = 0
   nmap <silent> <C-k> <Plug>(ale_previous_wrap)
   nmap <silent> <C-j> <Plug>(ale_next_wrap)
   ```
+---
+
+## 其他
+
+* [Codeclimate](https://codeclimate.com/)
+* [Travis-CI](https://travis-ci.org/)
+* [Jenkins](https://jenkins.io)
+  [Jenkins and Ruby](https://jenkins.io/solutions/ruby/)
+* [GitLab-CI](https://about.gitlab.com/gitlab-ci/)
+
+-->
