@@ -2,39 +2,57 @@
 
 > 函数对任何语言来说都是一个核心的概念
 
-|                        | Ruby                  | Javascript                                        | Lua | Java | Go                                                      |
-|------------------------|-----------------------|---------------------------------------------------|-----|------|---------------------------------------------------------|
-|                        | def                   | function                                          |     |      | func                                                    |
-| First Class Object     | N                     | Y                                                 |     |      | Y                                                       |
-| 匿名函数与闭包         | N<br>lambda有类似效果 | Y                                                 |     |      | Y                                                       |
-| 参数传递               |                       | 值拷贝                                            |     |      | 值拷贝                                                  |
-| 参数默认值             |                       | ES5: N<br>ES6: Y                                  |     |      | N                                                       |
-| 实参和形参数量必须一致 | 必须                  | 不必须                                            |     |      |                                                         |
-| 不定长变参             |                       | ES5: arguments<br>ES6: `function(...arrayInside)` |     |      | Y<br>`func (slice_inside ...int)`                       |
-| 命名参数               |                       | N<br>使用object代替                               |     |      | N<br>使用struct代替                                     |
-| 多返回值               |                       | N                                                 |     |      | Y<br>不能用数组切片接收<br>可用于函数实参, 或者赋值右值 |
-| 默认返回值             | 最后一个表达式的值    | undefined<br>>ES6 箭头函数某些情况会自动return    |     |      | N                                                       |
-| 函数重载               |                       | N                                                 |     | Y    | N                                                       |
+|                        | Ruby                           | Javascript                                        | Go                                                      | Lua |
+|------------------------|--------------------------------|---------------------------------------------------|---------------------------------------------------------|-----|
+|                        | def                            | function                                          | func                                                    |     |
+| First Class Object     | N                              | Y                                                 | Y                                                       |     |
+| 匿名函数与闭包         | N<br>lambda, proc提供闭包功能  | Y                                                 | Y                                                       |     |
+| 参数传递               | 值拷贝                         | 值拷贝                                            | 值拷贝                                                  |     |
+| 参数默认值             | Y                              | ES5: N<br>ES6: Y                                  | N                                                       |     |
+| 实参和形参数量必须一致 | 必须                           | 不必须                                            |                                                         |     |
+| 不定长变参             | Y<br>`def max(first, *rest)`   | ES5: arguments<br>ES6: `function(...arrayInside)` | Y<br>`func (slice_inside ...int)`                       |     |
+| 命名参数               | Y<br>`def foo(bar: 'default')` | N<br>使用object代替                               | N<br>使用struct代替                                     |     |
+| 多返回值               | Y<br>多返回值聚合到一个数组中  | N                                                 | Y<br>不能用数组切片接收<br>可用于函数实参, 或者赋值右值 |     |
+| 默认返回值             | 最后一个表达式的值             | undefined<br>>ES6 箭头函数某些情况会自动return    | N                                                       |     |
+| 函数重载               | N                              | N                                                 | N                                                       | N   |
 
 ---
 
-### Ruby
+### 1. Ruby
 
-bang!函数最佳实践
+* 严格来说, Ruby只有method, 没有function.
+* 在Ruby中一切皆为对象, 不过方法和代码块并不是可操作的对象.
+* 除了常规的方法, Ruby还提供了proc, lambda以及Method对象, 他们的行为更像函数, 而非方法
 
-method(sym) → method
+#### 可调用对象
 
-函数中再定义函数?
+Ruby 提供了三种可调用对象: Proc对象, lambda, method对象. 可调用对象的一个使用是实现延迟执行, 这个在rails的scope中经常用到（scope中的lambda的Time.now不会在class加载的时候固化）
 
+`Proc.new => proc`
+
+`proc {block} => proc`
+
+`lambda {block} => lambda`
+
+`->(arg) {block} => lambda`
+
+`Object#method(sym) → method`
+
+方法中获得传入代码块转化的对象是Proc对象
+
+proc 和 lambda 的区别:
+
+* proc中的return会从**定义**proc的作用域返回，lambda会更合理的从lambda中返回.
+* proc自适应传递的参数个数，lambda严格要求参数个数.
 
 ---
 
-### Javascript
+### 2. Javascript
 
 #### 函数的属性和方法
 
 * 属性 length: 形参个数
-* 属性 prototype: 见[面向对象]()
+* 属性 prototype: 见[面向对象](TODO)
 * 方法apply
 * 方法call
 
@@ -43,7 +61,7 @@ method(sym) → method
 * arguments
 
   和大多数语言不同, Javascript函数不介意传递进来多少参数, 没有传递的参数自动赋予undefined
-  
+
   原因在于Javascript中参数在内部是用一个数组来表示, 函数接收到的始终都是这个数组, 而不关心数组里有哪些参数.
 
   这个数组就是arguments, 它是一个伪数组, 不是Array的实例, 但是可以使用`[]`进行索引, 也有length属性
@@ -153,20 +171,37 @@ var sum = function (x, y) {
 
 ---
 
-### Lua
+### 3. Go
 
----
+#### 内建函数
 
-### Java
+并非所有的GO函数都是一等公民, 内建函数(builtin/builtin.go)不能作为函数值进行参数传递, 事实上这些内建类型并不真的在builtin包中，只是为了生成文档的需要.
 
----
+可以在任意的包中调用这些内建函数，不必引入特定的包如"builtin"
 
-### Go
+```
+1、close: 关闭channel
+2、len(s):得到字符串、数组、数值指针、slice、map、chan的长度
+3、cap(s):得到数组、数组指针的长度，得到slice、channel的容量
+4、new(T): 生成类型T的零值指针,注意它返回的是指针 *T
+5、make: 生成slice、map、channel对象
+6、append(s S, x ...T) S: 增加0到n个元素到slice中，返回新的slice
+7、copy(dst, src []T) int: 复制源src slice的元素到目标dst slice中,返回复制的元素的数量n, n是src和dst长度的最小值。字符串也可以作为src,但是T的类型必须是byte
+8、delete(m,k): 删除map中的一个映射， m为nil或者m[k]不存在也不会panic,而是一个空操作
+9、complex、real、imag: 复数操作
+10、panic、recover: 报告panic和处理panic,后面讲
+11、print、println: 尽量不用这两个函数，因为保证将来它们还会留在Go语言中，使用fmt.Print、fmt.Println
+```
 
 * 支持命名返回值
 * defer 延迟调用
 
+---
+
+### 4. Lua
 
 ----
 
-单独写一个匿名函数
+[comment]: <> (单独写一个匿名函数)
+[comment]: <> (ruby 方法中再定义方法)
+
