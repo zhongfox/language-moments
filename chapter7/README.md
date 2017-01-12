@@ -1,34 +1,25 @@
 # 7. 面向对象
 
-|              | Ruby                                 | Javascript                             | Lua       | Java              | Go                |
-|--------------|--------------------------------------|----------------------------------------|-----------|-------------------|-------------------|
-| 实现         | Class                                | Prototype                              | metatable |                   |                   |
-| 类即对象     | Y                                    | Y<br>函数是对象                        | Y         | N                 |                   |
-| 对象标识     | `Kernel#object_id`                   |                                        |           | `Object#hashCode` | 取地址`&var_name` |
-| 对象自举     | self                                 | this                                   | self TODO | this              |                   |
-| 类的超类     | Object                               | Object                                 |           | Object            |                   |
-| 自省类名     | `Kernel#class`                       | `Object.prototype.constructor`         | type()    |                   |                   |
-| 直接类型判断 | `Kernel#instance_of?`                | `someObject.constructor === SomeClass` |           |                   |                   |
-| 间接类型判断 | `Kernel#kind_of?`<br> `Kernel#is_a?` | `someObject instanceof SomeClass`      |           |                   |                   |
-| 实例化       | `Person.new(args)`                   | `new Person(args)`                     |           |                   |                   |
-| 实例方法     |                                      |                                        |           |                   |                   |
-| 实例变量     | `@var_name`                          |                                        |           |                   |                   |
-| 类方法       |                                      |                                        |           |                   |                   |
-| 类变量       | `@@var_name`                         |                                        |           |                   |                   |
+|              | Ruby                                 | Javascript                             | Go                | Lua       |
+|--------------|--------------------------------------|----------------------------------------|-------------------|-----------|
+| 实现         | Class                                | Prototype                              | Interface         | metatable |
+| duck typing  | Y                                    | N                                      | Y                 | N         |
+| 类即对象     | Y                                    | Y<br>函数是对象                        | N                 | Y         |
+| 对象标识     | `Kernel#object_id`                   | 无                                     | 取地址`&var_name` |           |
+| 对象自举     | self                                 | this                                   |                   | self TODO |
+| 类的超类     | Object                               | Object                                 |                   |           |
+| 自省类名     | `Kernel#class`                       | `Object.prototype.constructor`         |                   | type()    |
+| 直接类型判断 | `Kernel#instance_of?`                | `someObject.constructor === SomeClass` |                   |           |
+| 间接类型判断 | `Kernel#kind_of?`<br> `Kernel#is_a?` | `someObject instanceof SomeClass`      |                   |           |
+| 实例化       | `Person.new(args)`                   | `new Person(args)`                     |                   |           |
+| 实例方法     |                                      |                                        |                   |           |
+| 实例变量     | `@var_name`                          |                                        |                   |           |
+| 类方法       | 类的单键方法                         |                                        |                   |           |
+| 类变量       | `@@var_name`                         |                                        |                   | TODO      |
 
 ---
 
-
-面向对象, 主要是找实例方法/属性
-
-js直接设置__proto__
-
-和元表
-
-谈及一个对象的类型(type)时, 我们指的是一个刻画了该对象的行为集合. 换言之, 对象的类型就是它能响应的方法集合. 一个对象的类型与其所属的类有关系, 但是类只是对象类型的一部分
-
-
-### Ruby
+### 1. Ruby
 
 Ruby 是一门非常纯粹的面向对象的语言, 所有值都是对象, 没有基本类型(primitive)和对象类型的区别
 
@@ -58,8 +49,7 @@ Ruby 是一门非常纯粹的面向对象的语言, 所有值都是对象, 没�
 
 ---
 
-### Javascript
-
+### 2. Javascript
 
 #### 构造函数
 
@@ -103,8 +93,6 @@ Ruby 是一门非常纯粹的面向对象的语言, 所有值都是对象, 没�
   person1.friends.push("Nash"); //可变对象的修改, 会影响原型链
   console.log(person2.friends); //[ 'Kevin', 'Nash' ]
   ```
-
-
 #### __proto__
 
 * `__proto__` 是对象原型链上方法查找的直接导向
@@ -130,13 +118,17 @@ Ruby 是一门非常纯粹的面向对象的语言, 所有值都是对象, 没�
 
 ---
 
-### Lua
+### 3. Go
+
+Go不是一种典型的OO语言，它在语法上不支持类和继承的概念。
+没有继承的Go仍然可以拥有多态行为, Go语言引入了一种新类型—Interface，它在效果上实现了类似于C++的「多态」概念, 虽然与C++的多态在语法上并非完全对等, 但至少在最终实现的效果上, 它有多态的影子.
+
+谈及一个对象的类型(type)时, 我们指的是一个刻画了该对象的行为集合. 换言之, 对象的类型就是它能响应的方法集合. 一个对象的类型与其所属的类有关系, 但是类只是对象类型的一部分.
 
 ---
 
-### Java
+### 4. Lua
 
 ---
 
-### Go
-
+[comment]: <> (面向对象, 主要是找实例方法/属性)
