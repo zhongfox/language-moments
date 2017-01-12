@@ -16,5 +16,6 @@ _book
 *.pdf
 
 *.swo
+*.swn
 
 npm-debug.log
