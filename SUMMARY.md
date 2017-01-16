@@ -31,7 +31,7 @@
     * [6.1 异常处理](chapter6/exception.md)
 * [7. 面向对象](chapter7/README.md)
     * [7.1 方法](chapter7/method.md)
-    * [7.2 复制](chapter7/copy.md)
+    * [7.2 继承链](chapter7/inherit_chain.md)
     * [7.3 反射](chapter7/reflection.md)
     * [7.3 接口](chapter7/interface.md)
 * [8. 包管理 (未完成)](chapter8/README.md)
