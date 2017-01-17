@@ -52,6 +52,14 @@ Ruby 是一门非常纯粹的面向对象的语言, 所有值都是对象, 没�
 
 * 引用类型: Object(Array, Function, Date, RegExp, ...)
 
+javascript 的primitive类型是不可变的值, Object 是可变的. 有很多办法可以吧primitive转换为Object, 其中最通用的就是`Object`方法:
+
+```javascript
+if (Object(result) === result) {
+  // result是一个对象......
+}
+```
+
 #### primitive包装类型: String, Number, Boolean
 
 基本包装类型属于引用类型

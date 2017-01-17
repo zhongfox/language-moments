@@ -32,7 +32,7 @@
 * [7. 面向对象](chapter7/README.md)
     * [7.1 方法](chapter7/method.md)
     * [7.2 继承链](chapter7/inherit_chain.md)
-    * [7.3 反射](chapter7/reflection.md)
+    * [7.3 反射与元编程](chapter7/reflection_metaprogramming.md)
     * [7.3 接口](chapter7/interface.md)
 * [8. 包管理 (未完成)](chapter8/README.md)
     * [8.1 包的定义](chapter8/baodedingyi.md)

@@ -104,20 +104,19 @@ fmt.Println(reflect.TypeOf(dove2), reflect.ValueOf(dove2).Kind())
 
 ---
 
-### 3. Java
+### 3. Javascript
+
+Javascript 设计模式中可以实现接口, 但是并不常用.
+
+---
+
+### 4. Java
 
 TODO: Java 说: 前排占坑, 等下班了我来回答
 
 ---
 
-### 4. Lua
+### 5. Lua
 
 Lua 表示不想和你们说话
-
----
-
-### 5. Javascript
-
-Javascript 不想和你们说话, 并扔来一个undefined
-
 
