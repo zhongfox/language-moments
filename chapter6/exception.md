@@ -3,7 +3,7 @@
 |                  | Ruby            | Javascript                       | Go                          | Lua  |
 |------------------|-----------------|----------------------------------|-----------------------------|------|
 | 错误             | Exception 实例  | Error 实例                       | Error 实例                  |      |
-| 异常             | raise Exception | throw Error                      | panic Error                 |      |
+| 异常             | raise Exception | throw anyValue                   | panic Error                 |      |
 | 捕获异常         | rescue          | catch                            | recover                     |      |
 | 错误传递         | 可以但并不流行  | 通常异步回调函数的一个参数是错误 | `result, error := doSome()` |      |
 | 调用栈中异常冒泡 | Y               | Y                                | Y                           | TODO |
@@ -67,6 +67,50 @@ end #结束
 ---
 
 ### 2. Javascript
+
+#### Exceptions vs. Errors
+
+* Exception: 通过throw抛出的任意值, 不要求是Error的实例
+* Error: Error实例
+
+#### 错误类型 Error
+
+Error 主要属性:
+
+* `Error.captureStackTrace(targetObject[, constructorOpt])`
+
+  在targetObject上创建代表代码定位的属性stack.
+
+  可选参数constructorOpt是一个function, 表示在这个function以及之上的调用帧, 都自动去掉. 主要是起到去噪的作用
+
+* `Error.stackTraceLimit` 返回Error捕获帧的数目, 可修改, 默认是10.
+
+Error 实例重要属性:
+
+* `Error#message` 错误消息
+* `Error#stack` 错误栈是描述Error对象**初始化时**的调用栈
+
+  错误栈的首行是`<error class name>: <error message>`, 后面跟着若干行的调用帧(stack frames)
+
+**最佳实践**: 不用使用string代表错误, 在throw或者异步方式中, 都使用Error对象.
+
+* 错误处理方不能使用`instanceof Error` 进行错误归类识别
+* Error 对象有很多调试的重要信息, 使用string无法提供, 比如错误堆栈
+
+参见[A String is not an Error](http://www.devthought.com/2011/12/22/a-string-is-not-an-error/)
+
+#### 自定义错误类型
+
+```javascript
+var util = require('util');
+var AbstractError = function (message) {
+  Error.call(this); // 继承相关
+  Error.captureStackTrace(this, arguments.callee);
+  this.message = message;
+  this.name = errorClass;
+};
+util.inherits(AbstractError, Error)
+```
 
 #### 异常传递方式
 
@@ -197,7 +241,6 @@ end #结束
 
 参考资料
 
+* [Error Handling in Node.js](https://www.joyent.com/developers/node/design/errors)
 * [Why is it bad style to 「rescue Exception => e」 in Ruby?](http://stackoverflow.com/questions/10048173/why-is-it-bad-style-to-rescue-exception-e-in-ruby)
-
-
-[comment]: <> (关注如何实现自定义错误)
+* [Node.js Documentation Error](https://nodejs.org/api/errors.html)
