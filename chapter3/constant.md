@@ -1,10 +1,10 @@
 # 3.3 常量
 
-|          | Ruby 默认            | Ruby Module.freeze | Javascript ES5                             | Javascript ES6 | Go                                                            | Lua  |
-|----------|----------------------|--------------------|--------------------------------------------|----------------|---------------------------------------------------------------|------|
-| 实现     | 大写字母开头的是常量 |                    | ES5:不支持, 替代方案: `Object.freeze(obj)` | ES6: const     | const<br>常量在预处理阶段直接展开, 作为指令数据<br>类型有限制 |      |
-| 修改     | 允许                 | 不允许(报错)       | 不允许(无异常)                             | 允许           | 无法修改                                                      |      |
-| 重新赋值 | 允许, 会有warning    | 允许               | 允许                                       | 不允许(报错)   | 不允许                                                        | TODO |
+|          | Ruby 默认            | Ruby Module.freeze | Javascript ES5                             | Javascript ES6 | Go                                                            | Lua    |
+|----------|----------------------|--------------------|--------------------------------------------|----------------|---------------------------------------------------------------|--------|
+| 实现     | 大写字母开头的是常量 |                    | ES5:不支持, 替代方案: `Object.freeze(obj)` | ES6: const     | const<br>常量在预处理阶段直接展开, 作为指令数据<br>类型有限制 | 不支持 |
+| 修改     | 允许                 | 不允许(报错)       | 不允许(无异常)                             | 允许           | 无法修改                                                      | -      |
+| 重新赋值 | 允许, 会有warning    | 允许               | 允许                                       | 不允许(报错)   | 不允许                                                        | -      |
 
 
 可以看到常量这个术语在不同语言中有不同的表现, 使用常量的语境有很多, 比如: 固定值, 已知值, 减少魔数, 减少字符串字面量, 统一配置等等, 不过在具体使用时, 还应该考虑的是, 这个常量是否可以被修改, 以及这个常量标识符是否可以被重新赋值.
@@ -142,6 +142,33 @@ const y string = 100
 ---
 
 ### 4. Lua
+
+
+Lua 原生没有常量功能, 可以利用元表进行属性设置拦截:
+
+```lua
+function newConst( const_table )    --生成常量表功能
+  local function Const( const_table )
+    local mt = {
+      __index = function (t, k) return const_table[k] end,
+      __newindex = function (t, k, v)
+        print("*can't update " .. tostring(const_table) .."[" .. tostring(k) .."] = " .. tostring(v))
+      end
+    }
+    return mt
+  end
+
+  local t = {}
+  setmetatable(t, Const(const_table))
+  return t
+end
+
+local x = {}
+newConst(x)
+
+x.a = 3 -- *can't update table: 0x7fa469701490[a] = 3
+```
+
 
 ---
 
