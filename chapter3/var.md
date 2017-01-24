@@ -1,13 +1,18 @@
 # 3.2 变量
 
-|                                    | Ruby                                | Javascript                                                         | Go                     | Lua                |
-|------------------------------------|-------------------------------------|--------------------------------------------------------------------|------------------------|--------------------|
-| 未声明变量                         | NameError                           | ReferenceError                                                     | 编译错误:undefined XXX |                    |
-| 判断未声明变量                     | `defined? nonexist_var #nil`        | `typeof nonexistVar //undefined`                                   | TODO                   |                    |
-| 未赋值初值                         | nil                                 | undefined                                                          | 二进制零值             |                    |
-| 未使用的局部变量                   | no problem, but bad style           | no problem, but bad style                                          | 编译错误               |                    |
-| [变量作用域](/chapter3/scope.html) | `class` `module` `def` 开启新作用域 | ES5: 函数开启闭包作用域<br>ES6: 增加`let` `const` 遵循块`{}`作用域 | 块作用域`{}`           | 函数开启闭包作用域 |
-| 赋值                               | 值拷贝                              | 值拷贝                                                             | 值拷贝                 | ?                  |
+|                                    | Ruby                                | Javascript                                                         | Go                     | Lua                       |
+|------------------------------------|-------------------------------------|--------------------------------------------------------------------|------------------------|---------------------------|
+| 使用未声明变量                     | NameError                           | ReferenceError                                                     | 编译错误:undefined XXX | nil                       |
+| 判断未声明变量                     | `defined? nonexist_var #nil`        | `typeof nonexistVar //undefined`                                   | TODO                   | 任何不存在的变量即为nil   |
+| 未赋值初值                         | nil                                 | undefined                                                          | 二进制零值             | nil                       |
+| 未使用的局部变量                   | no problem, but bad style           | no problem, but bad style                                          | 编译错误               | no problem, but bad style |
+| [变量作用域](/chapter3/scope.html) | `class` `module` `def` 开启新作用域 | ES5: 函数开启闭包作用域<br>ES6: 增加`let` `const` 遵循块`{}`作用域 | 块作用域`{}`           | 块作用域`do end`          |
+| 赋值                               | 值拷贝                              | 值拷贝                                                             | 值拷贝                 | 值拷贝                    |
+
+Ruby, Javascript, Lua 变量都有局部变量和全局变量之分, Go语言之有包内的全局变量(TODO), 通常来说, 应该尽可能使用局部变量, 使用局部变量至少有以下2个好处:
+
+1. 避免命名冲突.
+2. 访问局部变量的速度比全局变量更快.
 
 ---
 
@@ -105,6 +110,8 @@ TODO 尽量使用指针
 ---
 
 ### 4. Lua
+
+访问一个么初始化的变量不会出错, 只会得到nil, 给一个变量赋值nil, 等同于删除这个变量.
 
 ---
 
