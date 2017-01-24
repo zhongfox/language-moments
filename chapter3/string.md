@@ -1,19 +1,19 @@
 # 3.9 字符串
 
-|            | Ruby                                                                                   | Javascript                                                 | Go                                           | Lua                                                           |
-|------------|----------------------------------------------------------------------------------------|------------------------------------------------------------|----------------------------------------------|---------------------------------------------------------------|
-| 存储       | 1.8 字节序列<br>1.9 字符序列                                                           | UCS-2                                                      | Unicode                                      |                                                               |
-| 可变性     | 可变<br>`str[-1]='hi'`                                                                 | 不可变                                                     | 不可变                                       | 不可变                                                        |
-| 字面量     | 单引号, 双引号<br>单双有别, 双引号支持模板                                             | 单引号, 双引号                                             | 双引号                                       | 单引号, 双引号                                                |
-| 长度       | 字节: `bytesize`<br>字符:`length` `size`                                               | 字符: length属性                                           | 字节: `len(str)`<br>字符: `len([]rune(str))` |                                                               |
-| 遍历       | 字节: `each_byte`<br>字符:`each_char`<br>字符码:`each_codepoint`<br>行遍历:`each_line` | 字符: `for i`<br>ES6: `for of`                             | 字节: `for i`<br>字符: `for range`           |                                                               |
-| 索引访问   | `str[i]`<br>倒序索引: `str[-1]`                                                        | `str[i]` `charAt[i]`<br>ES6: `at(i)`                       | `str[i]`                                     | string.sub(str,start,end)左闭右闭<br>索引从0开始,支持负数倒序 |
-| 索引越界   | nil                                                                                    | undefined                                                  | panic                                        | 空字符串                                                      |
-| 片段       | 返回全新字符串:<br>`str[start, len]`<br>`str(start..end)`                              | `substring(start,end)左闭右开`<br>`substr(start[,length])` | 切片语法: `str[start:end]` 左闭右开          |                                                               |
-| 拼接       | `str1+str2`<br>模板字符串内插<br>`String#<<`                                           | `str1+str2`<br>`concat(str1,...)`                          | `str1 + str2`                                |                                                               |
-| to 数组    | `split(pattern=nil, [limit])`                                                          | `split([separator[, limit]])`                              | 字节: `byte(str)`<br>字符: `[]rune(str)`     |                                                               |
-| from 数组  | `Array#join(separator=$,)`                                                             | `Array#join([separator])`                                  | `string(byte_or_rune_array)`                 |                                                               |
-| 字符串模板 | 支持                                                                                   | ES6支持                                                    | 支持                                         | TODO                                                          |
+|            | Ruby                                                                                   | Javascript                                                 | Go                                           | Lua                                                              |
+|------------|----------------------------------------------------------------------------------------|------------------------------------------------------------|----------------------------------------------|------------------------------------------------------------------|
+| 存储       | 1.8 字节序列<br>1.9 字符序列                                                           | UCS-2                                                      | Unicode                                      | 8位字节                                                          |
+| 可变性     | 可变<br>`str[-1]='hi'`                                                                 | 不可变                                                     | 不可变                                       | 不可变                                                           |
+| 字面量     | 单引号, 双引号<br>单双有别, 双引号支持模板                                             | 单引号, 双引号                                             | 双引号                                       | 单引号, 双引号                                                   |
+| 长度       | 字节: `bytesize`<br>字符:`length` `size`                                               | 字符: length属性                                           | 字节: `len(str)`<br>字符: `len([]rune(str))` | 字符: `#`                                                        |
+| 遍历       | 字节: `each_byte`<br>字符:`each_char`<br>字符码:`each_codepoint`<br>行遍历:`each_line` | 字符: `for i`<br>ES6: `for of`                             | 字节: `for i`<br>字符: `for range`           | `for i = 1, #str do ... end`                                     |
+| 索引访问   | `str[i]`<br>倒序索引: `str[-1]`                                                        | `str[i]` `charAt[i]`<br>ES6: `at(i)`                       | `str[i]`                                     | `string.sub(str,start,end)`<br>左闭右闭,索引从0开始,支持负数倒序 |
+| 索引越界   | nil                                                                                    | undefined                                                  | panic                                        | 空字符串                                                         |
+| 片段       | `str[start, len]`<br>`str(start..end)`                                                 | `substring(start,end)左闭右开`<br>`substr(start[,length])` | 切片语法: `str[start:end]` 左闭右开          | `string.sub(str,start,end`                                       |
+| 拼接       | `str1+str2`<br>模板字符串内插<br>`String#<<`                                           | `str1+str2`<br>`concat(str1,...)`                          | `str1 + str2`                                | `str1+str2`                                                      |
+| to 数组    | `split(pattern=nil, [limit])`                                                          | `split([separator[, limit]])`                              | 字节: `byte(str)`<br>字符: `[]rune(str)`     | 无内置实现                                                       |
+| from 数组  | `Array#join(separator=$,)`                                                             | `Array#join([separator])`                                  | `string(byte_or_rune_array)`                 | `table.concat (list [, sep [, i [, j]]])`                        |
+| 字符串模板 | 支持                                                                                   | ES6支持                                                    | 支持                                         | 无内置实现                                                       |
 
 ---
 
@@ -81,9 +81,26 @@ for (let char of '语言的学习') {
 
 ### 4. Lua
 
-TODO
+#### 单双有别
+
+* 单引号字符串不解释反斜杠转义序列
+* 双引号字符串解释反斜杠转义序列
+
+Lua 标准库的吝啬, 在string的API上可见一斑, 很多其他语言操作字符串的API, 在lua中都没有原生的支持, 不过通常在lua社区都可以找到实现:
+
+* 字符串split: <http://lua-users.org/wiki/SplitJoin>
+* 字符串模板: <http://lua-users.org/wiki/TextTemplate> <http://lua-users.org/wiki/StringInterpolation>
 
 ---
+
+参考资料:
+
+* [lua-users Sample Code](http://lua-users.org/wiki/SampleCode) 有很多不错的lua扩展
+
+
+
+
+
 
 
 <!--
@@ -185,6 +202,10 @@ ES6 对js的字符串进行了扩展支持, 参见[Unicode与JavaScript详解](h
 ---
 
 ### Lua
+
+[[
+不解释转义序列
+]]
 
 ---
 
