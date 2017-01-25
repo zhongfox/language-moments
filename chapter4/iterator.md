@@ -1,12 +1,13 @@
-# 4.4 迭代
+# 4.4 遍历与迭代器
 
-|          | Ruby                                                          | Javascript                | Go | Lua  |
-|----------|---------------------------------------------------------------|---------------------------|----|------|
-| String   | `each_byte`<br>`each_char`<br>`each_codepoint`<br>`each_line` | ES6 Iterator              |    |      |
-| Array    | mixin Enumerable<br>`each_index`                              | ES6 Iterator<br>`forEach` |    |      |
-| Hash/Map | mixin Enumerable<br>`each_key`<br>`each_pair`<br>`each_value` | ES6 Iterator<br>`forEach` |    |      |
-| Set      | mixin Enumerable<br>`each_key`<br>`each_pair`<br>`each_value` | ES6 Iterator<br>`forEach` |    | TODO |
+> 迭代器是一种支持(类)指针的结构, 它可以遍历集合的每一个元素. 迭代器需要保留上一次成功调用的状态和下一次成功调用的状态, 也就是他知道来自哪里和将要去向哪里.
 
+|          | Ruby                                                          | Javascript                | Go                        | Lua                                |
+|----------|---------------------------------------------------------------|---------------------------|---------------------------|------------------------------------|
+| String   | `each_byte`<br>`each_char`<br>`each_codepoint`<br>`each_line` | ES6 Iterator              | `for i, v := range str {` | `for i = 1, #str do ... end`       |
+| Array    | mixin Enumerable<br>`each_index`                              | ES6 Iterator<br>`forEach` | `for i, v := range arr {` | `for k, v in ipairs(a) do ... end` |
+| Hash/Map | mixin Enumerable<br>`each_key`<br>`each_pair`<br>`each_value` | ES6 Iterator<br>`forEach` | `for k, v := range m {`   | `for k, v in pairs(m) do ... end`  |
+| Set      | mixin Enumerable<br>`each_key`<br>`each_pair`<br>`each_value` | ES6 Iterator<br>`forEach` | 内置无Set[^注1]           | 内置无Set[^注2]                    |
 
 在Ruby中mixin Enumerable的类, 需要实现each方法.
 
@@ -97,9 +98,51 @@ Object可以使用`for in`迭代属性, 可迭代的属性值包括原型链的�
 
 ### 3. Go
 
+TODO
+
 ---
 
 
 ### 4. Lua
+
+#### numeric for
+
+```lua
+for 控制变量=初始值, 终止值, step do
+   loop-part
+end
+```
+
+* 三个表达式只会被计算一次, 并且是在循环开始前
+* 控制变量 自动声明为局部变量, 并且只在循环内有效
+* step 可以省略, 默认是1
+* 循环中不要改变控制变量的值, 那样做的结果不可预知.
+
+#### Generic for
+
+```lua
+for 若干控制变量 in 迭代器 do
+   loop-part
+end
+```
+
+* 控制变量自动声明为局部变量, 并且只在循环内有效.
+* 循环中不要改变控制变量的值, 那样做的结果不可预知.
+
+常见的迭代器:
+
+* `pairs` 用于遍历一个table的键值对, 如 `for k, v in pairs(a) do print(k, v) end`
+
+  pairs 会迭代所有键值对, 包括数字索引(数组)和其他所有, 注意不保证顺序, 连数字索引也不保证顺序.
+
+  ipairs 只遍历从1开始的连续数字索引, 保证顺序.
+
+* `io.lines`
+* `string.gmatch`
+
+---
+
+[^注1]: 第三方实现 GO Set, 见<https://godoc.org/github.com/deckarep/golang-set>
+[^注2]: Lua可以利用table实现Set, 见<http://lua-users.org/wiki/SetOperations>
 
 ---
