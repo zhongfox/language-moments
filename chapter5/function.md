@@ -2,19 +2,20 @@
 
 > 函数对任何语言来说都是一个核心的概念
 
-|                        | Ruby                           | Javascript                                        | Go                                                      | Lua |
-|------------------------|--------------------------------|---------------------------------------------------|---------------------------------------------------------|-----|
-|                        | def                            | function                                          | func                                                    |     |
-| First Class Object     | N                              | Y                                                 | Y                                                       |     |
-| 匿名函数与闭包         | N<br>lambda, proc提供闭包功能  | Y                                                 | Y                                                       |     |
-| 参数传递               | 值拷贝                         | 值拷贝                                            | 值拷贝                                                  |     |
-| 参数默认值             | Y                              | ES5: N<br>ES6: Y                                  | N                                                       |     |
-| 实参和形参数量必须一致 | 必须                           | 不必须                                            |                                                         |     |
-| 不定长变参             | Y<br>`def max(first, *rest)`   | ES5: arguments<br>ES6: `function(...arrayInside)` | Y<br>`func (slice_inside ...int)`                       |     |
-| 命名参数               | Y<br>`def foo(bar: 'default')` | N<br>使用object代替                               | N<br>使用struct代替                                     |     |
-| 多返回值               | Y<br>多返回值聚合到一个数组中  | N                                                 | Y<br>不能用数组切片接收<br>可用于函数实参, 或者赋值右值 |     |
-| 默认返回值             | 最后一个表达式的值             | undefined<br>>ES6 箭头函数某些情况会自动return    | N                                                       |     |
-| 函数重载               | N                              | N                                                 | N                                                       | N   |
+|                        | Ruby                           | Javascript                                        | Go                                                      | Lua                             |
+|------------------------|--------------------------------|---------------------------------------------------|---------------------------------------------------------|---------------------------------|
+|                        | def play_ball(参数)<br>end     | function playBall(参数) {<br>}                    | func (本体)playBall(入参)(出参){<br>}                   | function play_ball(参数)<br>end |
+| First Class Object     | N                              | Y                                                 | Y                                                       | Y                               |
+| 匿名函数与闭包         | N<br>lambda, proc提供闭包功能  | Y                                                 | Y                                                       | Y                               |
+| 参数传递               | 值拷贝                         | 值拷贝                                            | 值拷贝                                                  | 值拷贝<!--TODO-->               |
+| 参数默认值             | Y                              | ES5: N<br>ES6: Y                                  | N                                                       | N                               |
+| 实参和形参数量必须一致 | 必须                           | 不必须                                            | 必须                                                    | 不必须                          |
+| 不定长变参             | Y<br>`def max(first, *rest)`   | ES5: arguments<br>ES6: `function(...arrayInside)` | Y<br>`func (slice_inside ...int)`                       | Y<br>`function select (n, ...)` |
+| 命名参数               | Y<br>`def foo(bar: 'default')` | N<br>使用object代替                               | N<br>使用struct代替                                     | N<br>使用table代替              |
+| 多返回值               | Y<br>多返回值聚合到一个数组中  | N                                                 | Y<br>不能用数组切片接收<br>可用于函数实参, 或者赋值右值 | Y                               |
+| 默认返回值             | 最后一个表达式的值             | undefined<br>>ES6 箭头函数某些情况会自动return    | N                                                       | N?nil?                          |
+| 函数重载               | N                              | N                                                 | N                                                       | N                               |
+| 调用函数时省略括号     | 允许                           | N                                                 | N                                                       | 当唯一的参数是string或table时   |
 
 ---
 
@@ -200,8 +201,14 @@ var sum = function (x, y) {
 
 ### 4. Lua
 
+#### 避免代码死区
+
+Lua要求break和return只能出现在block的结尾一句, 也就是chunk的最后一句, 具体讲, 就是end/else/until之前, 处于调试等目的想打破此规定, 可以将break/return包裹在do end块中.
+
 ----
 
+[comment]: <> (尾递归)
 [comment]: <> (单独写一个匿名函数)
 [comment]: <> (ruby 方法中再定义方法)
+[comment]: <> (lua 中的函数可以使lua或者其他语言编写, 使用起来都一样)
 
