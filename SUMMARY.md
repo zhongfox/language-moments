@@ -21,7 +21,7 @@
     * [4.2 句法结构](chapter4/structure.md)
     * [4.3 逻辑运算](chapter4/logic.md)
     * [4.3 自增自减](chapter4/increase_decrease.md)
-    * [4.4 迭代](chapter4/iterator.md)
+    * [4.4 遍历与迭代器](chapter4/iterator.md)
     * [4.5 编码风格](chapter4/style_guide.md)
     * [4.6 聚合与展开](chapter4/spread_rest.md)
 * [5. 函数](chapter5/README.md)
