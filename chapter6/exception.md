@@ -1,13 +1,13 @@
 # 6.1 异常处理
 
-|                  | Ruby            | Javascript                       | Go                          | Lua  |
-|------------------|-----------------|----------------------------------|-----------------------------|------|
-| 错误             | Exception 实例  | Error 实例                       | Error 实例                  |      |
-| 异常             | raise Exception | throw anyValue                   | panic Error                 |      |
-| 捕获异常         | rescue          | catch                            | recover                     |      |
-| 错误传递         | 可以但并不流行  | 通常异步回调函数的一个参数是错误 | `result, error := doSome()` |      |
-| 调用栈中异常冒泡 | Y               | Y                                | Y                           | TODO |
-
+|                  | Ruby            | Javascript                       | Go                          | Lua                                |
+|------------------|-----------------|----------------------------------|-----------------------------|------------------------------------|
+| 错误             | Exception 实例  | Error 实例                       | Error 实例                  | 容错函数的第二个返回值代表错误代码 |
+| 异常             | raise Exception | throw anyValue                   | panic Error                 | error (message [, level])          |
+| 捕获异常         | rescue          | catch                            | recover                     | pcall/xpcall                       |
+| 错误传递         | 可以但并不流行  | 通常异步回调函数的一个参数是错误 | `result, error := doSome()` | `result, error = do_some()`        |
+| 调用栈中异常冒泡 | Y               | Y                                | Y                           | Y                                  |
+| 调用栈           | `Kernel#caller` | `console.trace()`                | TODO                        | `debug.traceback()`                |
 
 ---
 
@@ -171,8 +171,6 @@ util.inherits(AbstractError, Error)
   </tr>
 </tbody></table>
 
-
-
 ---
 
 ### 3. Go
@@ -236,6 +234,44 @@ util.inherits(AbstractError, Error)
 
 * 错误变量以`err`开头, 错误消息全小写, 不要结束标点
 * 自定义错误类型通常以`Error`结尾
+
+---
+
+### 4. Lua
+
+* 函数错误通常指导原则: 易于避免的异常引发一个错误(调用error), 否则返回错误代码(错误消息)
+
+* 多数函数设计的返回值是: `value, message = callsome()` 我把这种函数叫做容错函数
+
+  如果发生错误, value 为nil, message 为错误消息; 如果没有错误, value为正常返回值
+
+* `assert(dosomething, message)` 类似于 `dosomething ? dosomething : error(message)`
+
+  lua常见技巧: `result = assert(容错函数调用)`; 期望得到正确的返回值, 否则就抛异常
+
+#### lua中的try-catch: pcall和xpcall
+
+**pcall**
+
+`status, error_or_result = pcall(somefunction)`
+
+成功的话, status是true, `error_or_result`是somefunction的返回值, 发生异常的话, status是false, `error_or_result`是错误消息, 不一定是字符串, 是抛出异常时调用error时的参数
+
+**xpcall**
+
+通常在错误发生时，希望落得更多的调试信息，而不只是发生错误的位置。但pcall返回时，它已经销毁了调用桟的部分内容。Lua提供了xpcall函数，xpcall接收第二个参数: 一个错误处理函数，当错误发生时，Lua会在调用桟展开（unwind）前调用错误处理函数，于是就可以在这个函数中使用debug库来获取关于错误的额外信息了:
+
+`status, error_or_result = xpcall(somefunction, errorHandler)`
+
+debug库提供了两个通用的错误处理函数:
+
+* debug.debug：提供一个Lua交互环境, 环境中保留了当前lua的堆栈, 非常利于调试.
+
+  `xpcall(dangerous_func, function () debug.debug() end)`
+
+* debug.traceback：根据调用桟来构建一个扩展的错误消息.
+
+  `pcall(dangerous_func, function () print(debug.traceback()) end)`
 
 ---
 
