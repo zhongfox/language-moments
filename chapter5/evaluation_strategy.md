@@ -26,7 +26,7 @@
    </tr>
    <tr>
      <td  rowspan="2">引用类型<br>Call by sharing</td>
-     <td  rowspan="2">Ruby<br>Javascript_Object<br>Go_map_channel_slice</td>
+     <td  rowspan="2">Ruby<br>Javascript_Object<br>Go_map_channel_slice<br>Lua_table</td>
      <td >change</td>
      <td >无法改变<br>见情况三</td>
    </tr>
@@ -134,7 +134,7 @@ Ruby:
 
 ```ruby
 def change(person)
-  person[:name] = { name: 'zhong' }
+  person = { name: 'zhong' }
 end
 
 me = { name: 'fox' }
