@@ -5,7 +5,7 @@
 | 起始索引 | 0                                          | 0                                         | 0                                                 | 1                                   |
 | 倒序索引 | `arr[-1]`                                  | 不支持                                    | 不支持                                            | 不支持                              |
 | 索引越界 | nil                                        | undefined                                 | panic                                             | nil                                 |
-| 长度     | `length`<br>`size`                         | `属性 length`                             | 内置函数`len()`                                   | `#` `table.getn(t)`                 |
+| 长度     | `length`<br>`size`                         | `属性 length`                             | 内置函数`len()`                                   | `#`<br>`table.getn(t)`              |
 | 长度可写 | 不支持                                     | `arr.length = 3`                          | 不支持                                            | 不支持                              |
 | 追加     | `Array#<<`<br> `push`                      | `arr.push([element1[, ...[, elementN]]])` | `func append(slice []Type, elems ...Type) []Type` | `table.insert (list, [pos,] value)` |
 | 连接     | `Array#+(other)`<br>`concat(ary1,ary2...)` | `concat(ary1,ary2...)`                    | `append(slice1, slice2...)`                       | 自行实现                            |
@@ -91,5 +91,8 @@ table 中如果有nil, table的长度是不确定的. 因此在使用Lua list时
 TODO:
 
 切片
+
+
+lua: table.remove 而不要用赋值nil, 赋值nil会造成空洞list
 
 -->

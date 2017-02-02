@@ -153,7 +153,7 @@ true
 * number: Lua中没有整数 TODO
 * string: 字符序列, 使用8位字节, 字符串可以包括任何数字字符
 * function: 第一类值
-* userdata: 用于存储C 数据, 预定于操作只有赋值和相等比较 TODO
+* userdata: 用于存储C 数据, 预定于操作只有赋值和相等比较<!-- TODO-->
 * thread: 表示执行的独立线路，用于执行协同程序
 * table: Lua 中的表(table)其实是一个关联数组(associative arrays), 数组的索引可以是数字或者是字符串
 

@@ -7,7 +7,7 @@
 | 捕获异常         | rescue          | catch                            | recover                     | pcall/xpcall                       |
 | 错误传递         | 可以但并不流行  | 通常异步回调函数的一个参数是错误 | `result, error := doSome()` | `result, error = do_some()`        |
 | 调用栈中异常冒泡 | Y               | Y                                | Y                           | Y                                  |
-| 调用栈           | `Kernel#caller` | `console.trace()`                | TODO                        | `debug.traceback()`                |
+| 调用栈           | `Kernel#caller` | `console.trace()`                | `debug.PrintStack()`        | `debug.traceback()`                |
 
 ---
 
@@ -234,6 +234,11 @@ util.inherits(AbstractError, Error)
 
 * 错误变量以`err`开头, 错误消息全小写, 不要结束标点
 * 自定义错误类型通常以`Error`结尾
+
+#### 调试:
+
+* `PrintStack` from `runtime/debug` prints to standard error the stack trace returned by Stack.
+* To print the stack trace for all goroutines use `Lookup` and `WriteTo` from `runtime/pprof`.
 
 ---
 

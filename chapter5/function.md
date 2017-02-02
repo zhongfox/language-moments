@@ -16,6 +16,7 @@
 | 默认返回值             | 最后一个表达式的值             | undefined<br>>ES6 箭头函数某些情况会自动return    | N                                                       | N?nil?                          |
 | 函数重载               | N                              | N                                                 | N                                                       | N                               |
 | 调用函数时省略括号     | 允许                           | N                                                 | N                                                       | 当唯一的参数是string或table时   |
+| 尾调用优化             | 默认未开启, 需要手动开启       | ES6 + strict 才会开启                             | 不支持尾调用. 要用goto来实现其效果                      | Y                               |
 
 ---
 
@@ -207,7 +208,13 @@ Lua要求break和return只能出现在block的结尾一句, 也就是chunk的最
 
 ----
 
-[comment]: <> (尾递归)
+参考资料
+
+* [尾调用优化](http://www.ruanyifeng.com/blog/2015/04/tail-call.html)
+* [Tail Call Optimization in Ruby](http://nithinbekal.com/posts/ruby-tco/)
+* [Tail call optimization](https://groups.google.com/forum/#!msg/golang-nuts/0oIZPHhrDzY/2nCpUZDKZAAJ)
+
+[comment]: <> (尾递归单独一个)
 [comment]: <> (单独写一个匿名函数)
 [comment]: <> (ruby 方法中再定义方法)
 [comment]: <> (lua 中的函数可以使lua或者其他语言编写, 使用起来都一样)

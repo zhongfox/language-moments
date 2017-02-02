@@ -1,4 +1,4 @@
-# 7.3 反射与元编程
+# 7.2 反射与元编程
 
 > 反射(reflection)也被称作内省(introspection), 通常表示一个程序可以审视自身的状态和结构, 尤其是类型
 
@@ -8,7 +8,9 @@
 
 ### 1. Ruby
 
-元编程是Ruby的重要特点之一, 这块我比较熟悉了, 这里省略N个字.
+元编程是Ruby的重要特点之一, 经典学习材料是[Ruby元编程](https://book.douban.com/subject/26575429/)
+
+我的学习笔记: [Ruby 元编程学习笔记](https://zhongfox.github.io/2013/03/17/ruby-metaprograming/)
 
 ---
 
@@ -72,5 +74,7 @@ ff := reflectValue.Interface().(float64) //float64
 ---
 
 ### 4. Lua
+
+Lua 中的 metatable 和 week table 可以认为是一种元编程. <!--TODO-->
 
 ---
