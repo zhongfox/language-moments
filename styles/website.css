@@ -1,3 +1,4 @@
-.book-summary {width: 200px;}
+.book-summary {width: 220px;}
+.book-body {left: 270px !important;}
 table:first-of-type {font-size:12px;}
 .page-inner {max-width: 900px;}

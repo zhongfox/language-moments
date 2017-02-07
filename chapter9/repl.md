@@ -8,6 +8,8 @@
 
 安装ruby自带REPL: `irb`, 表示 interactive ruby
 
+* 记录执行历史, 方便重复执行
+
 ---
 
 ### Javascript

@@ -168,7 +168,7 @@ exports.inherits = function(ctor, superCtor) {
 
 ![Javascript 继承链](/images/javascript_inherit_1.png)
 
-* `x instanceof y`~可以理解为:
+* `x instanceof y` 可以理解为:
 
   `x[.__proto__]+ === y.prototype` //[和]和+是正则表达式中的含义
 
