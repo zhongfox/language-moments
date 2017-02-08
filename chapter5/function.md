@@ -7,7 +7,7 @@
 |                        | def play_ball(参数)<br>end     | function playBall(参数) {<br>}                    | func (本体)playBall(入参)(出参){<br>}                   | function play_ball(参数)<br>end |
 | First Class Object     | N                              | Y                                                 | Y                                                       | Y                               |
 | 匿名函数与闭包         | N<br>lambda, proc提供闭包功能  | Y                                                 | Y                                                       | Y                               |
-| 参数传递               | 值拷贝                         | 值拷贝                                            | 值拷贝                                                  | 值拷贝<!--TODO-->               |
+| 参数传递               | 值拷贝                         | 值拷贝                                            | 值拷贝                                                  | 值拷贝                          |
 | 参数默认值             | Y                              | ES5: N<br>ES6: Y                                  | N                                                       | N                               |
 | 实参和形参数量必须一致 | 必须                           | 不必须                                            | 必须                                                    | 不必须                          |
 | 不定长变参             | Y<br>`def max(first, *rest)`   | ES5: arguments<br>ES6: `function(...arrayInside)` | Y<br>`func (slice_inside ...int)`                       | Y<br>`function select (n, ...)` |
@@ -54,7 +54,7 @@ proc 和 lambda 的区别:
 #### 函数的属性和方法
 
 * 属性 length: 形参个数
-* 属性 prototype: 见[面向对象](TODO)
+* 属性 prototype: 见[面向对象](/chapter7/#prototype)
 * 方法apply
 * 方法call
 

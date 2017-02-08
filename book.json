@@ -2,12 +2,20 @@
   "plugins": [
     "expandable-chapters",
     "image-captions",
-    "github"
+    "github",
+    "github-buttons"
   ],
   "pluginsConfig": {
     "expandable-chapters":{},
     "github": {
       "url": "https://github.com/zhongfox/language-moments"
+    },
+    "github-buttons": {
+      "repo": "zhongfox/language-moments",
+      "types": [
+        "star"
+      ],
+      "size": "small"
     }
   }
 }

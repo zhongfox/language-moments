@@ -143,7 +143,6 @@ const y string = 100
 
 ### 4. Lua
 
-
 Lua 原生没有常量功能, 可以利用元表进行属性设置拦截:
 
 ```lua
@@ -171,3 +170,6 @@ x.a = 3 -- *can't update table: 0x7fa469701490[a] = 3
 
 ---
 
+参考资料:
+
+* [Lua Immutable Objects](http://lua-users.org/wiki/ImmutableObjects) <!--TODO-->
