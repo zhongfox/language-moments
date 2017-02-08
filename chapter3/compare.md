@@ -85,6 +85,8 @@ fmt.Println(i == nil) //true
 fmt.Println(m == i)  //异常: operator == not defined on map
 ```
 
+另外, 对于数组而言,  如果元素支持`==` `!=` 数组也支持, 如果两个数组的对应元素比较都相等, 则数组比较为相等, 否则为不等. 如果元素不支持比较, 则数组比较会报错.
+
 #### nil 的比较
 
 nil 是pointer, channel, func, interface, map, slice 六种类型的零值, 因此nil和以上类型的零值是可以比较并且相等的:
@@ -101,11 +103,11 @@ var animal Animal = b //父接口
 fmt.Println(animal == nil) //true
 ```
 
-除此之外的值和nil不等. <!--TODO-->
+除此之外的值和nil不等.
 
 ```go
-var person *Person     // struct  
-var personStringer fmt.Stringer = person // Stringer(*Person, nil)  
+var person *Person     // struct
+var personStringer fmt.Stringer = person // Stringer(*Person, nil)
 fmt.Println( personStringer == nil)  // false
 ```
 
