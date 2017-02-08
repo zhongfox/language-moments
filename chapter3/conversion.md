@@ -78,7 +78,7 @@ Kernel还定义了四个和类名相同的转换函数: `Kernel#Array` `Kernel#F
 
 ##### 转换为字符串
 
-* `Object.prototype.toString()` 从[继承链](TODO) 关系看, 除了null, undefined以外的所有值, 都有`toString`方法
+* `Object.prototype.toString()` 从[继承链](/chapter7/inherit_chain.html#javascript-继承链) 关系看, 除了null, undefined以外的所有值, 都有`toString`方法
 
 * `String()` 在不确定需要转换的值是否是null或者undefined时, 可以使用String方法, String的转换规则是:
 
@@ -192,7 +192,6 @@ var j INT = k
   > 10 .. 20 => 30
 
 ---
-
 
 <!--
 
