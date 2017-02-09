@@ -6,9 +6,9 @@
 
 涉及到的主要编程语言版本:
 
-* Ruby: 1.9.3, 2.2
+* Ruby: 1.9.3, >2.2
 * Javascript: ES5, ES6 (Node.js 7.0.0)
-* Go: 1.6
+* Go: >1.6
 * Lua: 5.1.5, 5.2
 
 gitbook在线阅读地址: <https://www.gitbook.com/read/book/zhongfox/language-moments>
