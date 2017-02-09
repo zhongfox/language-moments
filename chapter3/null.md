@@ -89,7 +89,7 @@ nil 是无类型的预定义值, 而不是关键字, 预定义值在语法上可
 
 在golang中，nil只能赋值给pointer, channel, func, interface, map, slice类型的变量. 如果未遵循这个规则，则会引发panic
 
-以上六种类型nil值得含义如下:
+以上六种类型nil值的含义如下:
 
 ##### pointer
 

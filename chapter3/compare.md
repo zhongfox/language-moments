@@ -75,21 +75,28 @@ a.object_id == b.object_id
 
 Go是强类型语言, 只有同一类型下的值才能比较.
 
-nil可以和任何类型的值比较, 不过注意等于nil的两个值, 不一定能相互比较, 原因是「同一类型下的值才能比较」
-
-```go
-var m map[int]int
-fmt.Println(m == nil) //true
-var i interface{}
-fmt.Println(i == nil) //true
-fmt.Println(m == i)  //异常: operator == not defined on map
-```
+#### 数组比较
 
 另外, 对于数组而言,  如果元素支持`==` `!=` 数组也支持, 如果两个数组的对应元素比较都相等, 则数组比较为相等, 否则为不等. 如果元素不支持比较, 则数组比较会报错.
 
 #### nil 的比较
 
-nil 是pointer, channel, func, interface, map, slice 六种类型的零值, 因此nil和以上类型的零值是可以比较并且相等的:
+nil 是pointer, channel, func, interface, map, slice 六种类型的零值, 因此nil只能和以上6种类型进行比较:
+
+```go
+type T struct{ }
+var t = T{}
+
+//不能和Struct比较
+if t == nil { //Cannot convert nil to type T
+}
+
+//但是可以和指针比较
+if &t == nil {
+}
+```
+
+nil 和以上6种类型的零值相等:
 
 ```go
 var stringer fmt.Stringer //interface
@@ -109,6 +116,16 @@ fmt.Println(animal == nil) //true
 var person *Person     // struct
 var personStringer fmt.Stringer = person // Stringer(*Person, nil)
 fmt.Println( personStringer == nil)  // false
+```
+
+不过注意等于nil的两个值, 不一定能相互比较, 原因是「同一类型下的值才能比较」
+
+```go
+var m map[int]int
+fmt.Println(m == nil) //true
+var i interface{}
+fmt.Println(i == nil) //true
+fmt.Println(m == i)  //异常: operator == not defined on map
 ```
 
 对于interface和nil比较, 还可以如下理解:

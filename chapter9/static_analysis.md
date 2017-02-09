@@ -172,11 +172,16 @@ module.exports = {
 
 Go语言常见的代码质量工具有[gofmt](https://golang.org/cmd/gofmt/), [golint](https://github.com/golang/lint), [go vet](https://golang.org/cmd/vet/)
 
-* gofmt 直接格式化源码, 它的标准基本是强制性的, 比如使用缩进时tab(width = 8)而不是space, 去掉行尾空白等等
+* gofmt: 直接格式化源码, 它的标准基本是强制性的, 比如使用缩进时tab(width = 8)而不是space, 去掉行尾空白等等
 
-* golint 只是输出建议, 不格式化代码; 更关注编码风格上的问题; Golint 是在google内部使用的代码规范, 同时逐步和Go社区中的主流规范融合.
+* golint: 只是输出建议, 不格式化代码; 更关注编码风格上的问题; Golint 是在google内部使用的代码规范, 同时逐步和Go社区中的主流规范融合.
 
-* go vet: TODO
+* go vet: 关注代码错误问题, 而不是风格问题, 比如可以通过编译但仍然有可能存在错误的代码.
+
+
+> Golint differs from gofmt. Gofmt reformats Go source code, whereas golint prints out style mistakes.
+
+> Golint differs from govet. Govet is concerned with correctness, whereas golint is concerned with coding style. Golint is in use at Google, and it seeks to match the accepted style of the open source Go project.
 
 ---
 

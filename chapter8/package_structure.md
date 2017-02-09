@@ -1,5 +1,7 @@
 # 8.3 包结构
 
+---
+
 ### 1. Ruby
 
 Ruby Gem 的结构如下:
@@ -68,6 +70,8 @@ gemspec的详细规格说明请参考[SPECIFICATION REFERENCE](http://guides.rub
 
 ### 2. Node.js
 
+npm 既定义了包的结构, 也可以作为项目依赖的管理工具, 一个npm包的结构大致如下:
+
 ```
 ├── LICENSE
 ├── README.md
@@ -96,8 +100,6 @@ gemspec的详细规格说明请参考[SPECIFICATION REFERENCE](http://guides.rub
 
 * `scripts`: 脚本映射, 支持多个脚本
 
-  `start`, `install` 有默认执行机制 TODO
-
   通过`npm run 脚本名称`执行
 
 * `dependencies`: 运行时依赖声明
@@ -112,12 +114,13 @@ gemspec的详细规格说明请参考[SPECIFICATION REFERENCE](http://guides.rub
 
   `npm install packagename --dev` 指定包名, 排除开发时依赖, 效果同上
 
-
 详细规格说明参考[官方package.json说明](https://docs.npmjs.com/files/package.json)
 
 ---
 
 ### 3. Go
+
+Go Package 基本规格:
 
 * 一个目录下的第一层所有文件属于一个包, 这些文件需要声明相同的包名
 * 一个目录下的子目录是另一个完全没关系的独立包
@@ -128,7 +131,7 @@ gemspec的详细规格说明请参考[SPECIFICATION REFERENCE](http://guides.rub
 
 ### 4. Lua
 
-TODO: Lua 包定义由Luarocks实现, 用于管理与组织Lua模块.
+规格文件: `rockspec` 详见: [Creating a rock](https://github.com/luarocks/luarocks/wiki/Creating-a-rock)
 
 ---
 <!--

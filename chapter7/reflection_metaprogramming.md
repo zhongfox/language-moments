@@ -75,6 +75,6 @@ ff := reflectValue.Interface().(float64) //float64
 
 ### 4. Lua
 
-Lua 中的 metatable 和 week table 可以认为是一种元编程. <!--TODO-->
+Lua 中的 metatable 和 week table 可以认为是一种元编程. <!--todo-->
 
 ---

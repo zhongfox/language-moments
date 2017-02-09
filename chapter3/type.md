@@ -1,8 +1,8 @@
 # 3.2 数据类型
 
-|               | Ruby                       | Javascript                | Go     | Lua           |
-|---------------|----------------------------|---------------------------|--------|---------------|
-| Value Content | 引用类型对象<br>立即值对象 | 引用类型对象<br>primitive | 值类型 | - <!--TODO--> |
+|               | Ruby                   | Javascript                | Go     | Lua                    |
+|---------------|------------------------|---------------------------|--------|------------------------|
+| Value Content | 立即值<br>引用类型对象 | primitive<br>引用类型对象 | 值类型 | 值类型<br>引用类型对象 |
 
 ---
 
@@ -151,12 +151,12 @@ true
 * 值类型:
   * nil 只有一个值 nil
   * boolean: true, false
-  * number: Lua中没有整数 TODO
+  * number: 用于表示双精度浮点数, Lua中没有整数
   * string: 字符序列, 使用8位字节, 字符串可以包括任何数字字符
 
 * 引用类型:
   * function: 第一类值
-  * userdata: 用于存储C 数据, 预定于操作只有赋值和相等比较<!-- TODO-->
+  * userdata: 用于存储C 数据, 预定于操作只有赋值和相等比较
   * thread: 表示执行的独立线路，用于执行协同程序
   * table: Lua 中的表(table)其实是一个关联数组(associative arrays), 数组的索引可以是数字或者是字符串
 
@@ -164,10 +164,20 @@ true
 
 Tables, functions, threads, userdata 是引用类型, 存储、传递均是对象引用.
 
+#### 类型判断
+
+`type (v)`
+
+返回值是一个字符串, 有8个可能值:  "nil", "number", "string", "boolean", "table", "function", "thread", 和 "userdata".
+
 ---
 
+参考资料:
+
+* <http://www.lua.org/manual/5.3/manual.html>
+
 <!--
-TODO
+Lua userdata
 
 ### Java
 

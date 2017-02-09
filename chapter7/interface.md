@@ -79,7 +79,6 @@ var dove Bird = Dove{} // 规则2.2
 var animal Animal = dove //规则2.2
 fmt.Println(reflect.TypeOf(dove), reflect.ValueOf(dove).Kind()) //main.Dove struct
 fmt.Println(reflect.TypeOf(animal), reflect.ValueOf(animal).Kind())  //main.Dove struct
-// TODO: dove 和 animal 指向的值是相同的????
 // 接口变量dove的静态类型是接口类型Bird, 它指向的值的静态类型是Dove, 值的底层类型是struct
 // 接口变量animal的静态类型是接口类型Animal, 它指向的值的静态类型是Dove不变, 值的底层类型是struct
 // 简单的animal内心是复杂的Dove
@@ -119,6 +118,6 @@ Lua 表示不想和你们说话
 <!--
 ### 4. Java
 
-TODO: Java 说: 前排占坑, 等下班了我来回答
+todo: Java 说: 前排占坑, 等下班了我来回答
 
 -->
