@@ -1,11 +1,15 @@
 # 8.3 导入
 
-|            | Ruby                | Node.js                                         | Go                                          | Lua                                 |
-|------------|---------------------|-------------------------------------------------|---------------------------------------------|-------------------------------------|
-| 缓存加载   | require             | require                                         | import                                      | require                             |
-| 缓存       | $LOADED_FEATURES    | require.cache                                   | $GOPATH/pkg/                                | package.loaded                      |
-| 非缓存加载 | load                | 无                                              | 无                                          | dofile                              |
-| 搜索路径   | $LOAD_PATH:全局固定 | module.paths:当前文件相关<br>NODE_PATH:全局固定 | 递归vendor:当前文件相关<br>$GOPATH:全局固定 | package.path/package.cpath:全局固定 |
+|            | Ruby                   | Node.js                                         | Go                                          | Lua                                 |
+|------------|------------------------|-------------------------------------------------|---------------------------------------------|-------------------------------------|
+| 缓存加载   | require                | require                                         | import                                      | require                             |
+| 缓存       | $LOADED_FEATURES       | require.cache                                   | $GOPATH/pkg/                                | package.loaded                      |
+| 非缓存加载 | load                   | 无                                              | 无                                          | dofile                              |
+| 搜索路径   | $LOAD_PATH:全局固定    | module.paths:当前文件相关<br>NODE_PATH:全局固定 | 递归vendor:当前文件相关<br>$GOPATH:全局固定 | package.path/package.cpath:全局固定 |
+| 导入影响   | 将模块名引入到全局空间 | 不影响全局空间                                  | 不影响全局空间                              | 不影响全局空间                      |
+
+
+「导入影响」是指导入其他模块后, 是否会在全局空间新增模块名, 换句话说, 被导入的模块, 是当前模块可用还是全局可用, 在Ruby中模块是require到全局空间中, 而在Node.js, Lua等语言中, 模块是作为局部变量返回的, 不会影响全局的命名空间. 导入影响对于语言的包管理设计有重要的影响.
 
 ---
 
