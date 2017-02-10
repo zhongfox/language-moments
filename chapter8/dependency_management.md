@@ -13,9 +13,13 @@
 
 ### 2. Node.js
 
+关于NPM版本管理为什么没有lock文件(shrinkwrap 没有 bundle 完善，而且社区接受度还不高), 请参考:
+
+[npm 没有 Gemfile.lock 这样的机制，怎么想的？](https://ruby-china.org/topics/29777#reply10) 10楼的同学说得很清楚
+
 ---
 
-### Go
+### 3. Go
 
 对于项目依赖, 官方的建议是把外部依赖的代码全部复制到自己可控的源代码库中, 进行统一管理.
 
@@ -58,3 +62,7 @@ $GOPATH/src/myProject (Your project)
 ---
 
 ### 4. Lua
+
+TODO
+
+---

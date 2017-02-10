@@ -15,4 +15,4 @@ gitbook在线阅读地址: <https://www.gitbook.com/read/book/zhongfox/language-
 
 本书github地址: <https://github.com/zhongfox/language-moments>
 
-个人博客: <https://zhongfox.github.io/>
+<!--个人博客: <https://zhongfox.github.io/>-->
