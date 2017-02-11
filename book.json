@@ -4,7 +4,7 @@
     "image-captions",
     "github",
     "github-buttons",
-    "baidu"
+    "addcssjs"
   ],
   "pluginsConfig": {
     "expandable-chapters":{},
@@ -18,8 +18,7 @@
       ],
       "size": "small"
     },
-    "baidu": {
-      "token": "bfef5c80d6d47982aba064a8fe15ad72"
-    }
+    "addcssjs": { "js": ["js/baidutongji.js"]}
+
   }
 }
