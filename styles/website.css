@@ -1,4 +1,4 @@
 .book-summary {width: 220px;}
-.book-body {left: 270px !important;}
+@media (min-width:600px){.book.with-summary .book-body{left:270px}}
 table:first-of-type {font-size:12px;}
 .page-inner {max-width: 900px;}
