@@ -77,7 +77,7 @@ x + y # TypeError: no implicit conversion of Fixnum into String
 
 学习新语言的乐趣在于总能发现新的规则, 新的模式. 从最初学习C系列语言, 变量必须有固定类型, 到学习类型可变的动态语言; 从基于Class的面向对象体系, 到javascript, Lua等基于原型的继承体系, 再到提倡Duck Type 的Go语言Interface;  还有Ruby的`2.days.ago`, 猴子补丁, 鸭子类型, Lua 万花筒般的table类型等等, 这些无不给我发现新大陆的感觉.
 
-同时, 当我学习了更多的语言, 我也遇到了更多的困惑, 为什么同样都是值传递的Ruby和Go, 对数据影响的表现是不一致的? 为什么javascript通用风格提倡保留语句分号, 而很多其他语言提倡省略分号?, 同样是项目依赖管理, 为什么Ruby Bundler 提供了依赖版本锁定文件Gemfile.lock, 而Node.js NPM却没有呢?[^注3]
+同时, 当我学习了更多的语言, 我也遇到了更多的困惑, 为什么同样都是值传递的Ruby和Go, 对数据影响的表现是不一致的? 为什么javascript通用风格提倡保留语句分号, 而很多其他语言提倡省略分号? 同样是项目依赖管理, 为什么Ruby Bundler 提供了依赖版本锁定文件Gemfile.lock, 而Node.js NPM却没有呢?[^注3]
 
 我的初衷, 是想总结一下在我们团队的常用的语言中, 哪些是容易混淆的, 哪些是相通可以互相借鉴的, 同时希望能找到上面提到的一些疑惑的原因. 最开始这些语言的类比是记录在团队的wiki里, 但是后面加入的内容比较多, 一页wiki看起来比较混乱, 我就把它迁移到了gitbook上.
 
@@ -103,4 +103,4 @@ x + y # TypeError: no implicit conversion of Fixnum into String
 
 [^注1]: 当时使用的node.js版本是node/0.10.X,还没有实现ES6
 [^注2]: Ruby的确是强类型语言
-[^注3]: NPM提供了npm-shrinkwrap.json, 但是并不是默认应用的, 社区接收度也不高.
+[^注3]: NPM提供了npm-shrinkwrap.json, 但是默认并不启用, 社区接收度也不高.
