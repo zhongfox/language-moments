@@ -11,7 +11,7 @@
 * Go: >1.6
 * Lua: 5.1.5, 5.2
 
-gitbook在线阅读地址: <https://www.gitbook.com/read/book/zhongfox/language-moments>
+gitbook在线阅读地址: <https://zhongfox.gitbooks.io/language-moments>
 
 本书github地址: <https://github.com/zhongfox/language-moments>
 
