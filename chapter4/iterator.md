@@ -9,6 +9,11 @@
 | Hash/Map | mixin Enumerable<br>`each_key`<br>`each_pair`<br>`each_value` | ES6 Iterator<br>`forEach` | `for k, v := range m {`   | `for k, v in pairs(m) do ... end`  |
 | Set      | mixin Enumerable<br>`each_key`<br>`each_pair`<br>`each_value` | ES6 Iterator<br>`forEach` | 内置无Set[^注1]           | 内置无Set[^注2]                    |
 
+
+<!--
+TODO: js Object 只能for in
+TODO: 遍历格式写完整
+-->
 在Ruby中mixin Enumerable的类, 需要实现each方法.
 
 在ES6中, 实现了Iterator接口的数据结构可以使用`for of`迭代器, 原生具备Iterator接口的数据结构有: String, Array, Set, Map.

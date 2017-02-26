@@ -47,5 +47,6 @@
     * [9.1 REPL](chapter9/repl.md)
     * [9.2 静态分析工具](chapter9/static_analysis.md)
     * [9.3 Vim 静态分析插件](chapter9/vim_static_analysis.md)
+    * [9.4 Benchmark](chapter9/benchmark.md)
 * [10. TODO](chapter10/README.md)
 

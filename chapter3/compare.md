@@ -64,10 +64,14 @@ a.object_id == b.object_id
 
 ### 2. Javascript
 
+要点:
+
 * `==` `!=` 允许类型隐式转换, 规则比较难记, 不推荐使用, 干脆不要记
 * NaN 和任何值都不相等, 包括它自己, 判断是否是NaN需要用函数`isNaN(testValue)`
 * 两个对象的比较是比较是否是同一对象
 * `===` `!==` 不会进行类型转换
+
+比较详解: [JavaScript中比较运算的详细总结](http://gcidea.info/2017/01/12/js-compare/)
 
 ---
 
