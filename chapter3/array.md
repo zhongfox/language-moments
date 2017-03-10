@@ -31,6 +31,8 @@
 
 ### 2. Javascript
 
+<!--TODO array的复制: http://stackoverflow.com/questions/3978492/javascript-fastest-way-to-duplicate-an-array-slice-vs-for-loop-->
+
 #### 长度可写
 
 这算是几门语言中, Javascript比较特殊的地方:

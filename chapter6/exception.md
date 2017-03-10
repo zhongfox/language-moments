@@ -89,6 +89,7 @@ Error 实例重要属性:
 
 * `Error#message` 错误消息
 * `Error#stack` 错误栈是描述Error对象**初始化时**的调用栈
+* `name` 错误的名字
 
   错误栈的首行是`<error class name>: <error message>`, 后面跟着若干行的调用帧(stack frames)
 
@@ -98,6 +99,22 @@ Error 实例重要属性:
 * Error 对象有很多调试的重要信息, 使用string无法提供, 比如错误堆栈
 
 参见[A String is not an Error](http://www.devthought.com/2011/12/22/a-string-is-not-an-error/)
+
+错误堆栈的裁剪:
+
+Node.js 才支持这个特性，通过 `Error.captureStackTrace` 来实现，`Error.captureStackTrace`  接收一个 object 作为第 1 个参数，以及可选的 function 作为第 2 个参数。其作用是捕获当前的调用栈并对其进行裁剪，捕获到的调用栈会记录在第 1 个参数的 stack 属性上，裁剪的参照点是第 2 个参数，也就是说，此函数之前的调用会被记录到调用栈上面，而之后的不会.
+
+常用于自定义Error时, 去掉定义时的函数:
+
+```javascript
+function UncaughtException(message) {
+  Error.call(this);
+  Error.captureStackTrace(this, arguments.callee);
+  this.message = message;
+}
+util.inherits(UncaughtException, Error);
+errors.UncaughtException = UncaughtException;
+```
 
 #### 自定义错误类型
 
@@ -285,3 +302,4 @@ debug库提供了两个通用的错误处理函数:
 * [Error Handling in Node.js](https://www.joyent.com/developers/node/design/errors)
 * [Why is it bad style to 「rescue Exception => e」 in Ruby?](http://stackoverflow.com/questions/10048173/why-is-it-bad-style-to-rescue-exception-e-in-ruby)
 * [Node.js Documentation Error](https://nodejs.org/api/errors.html)
+* [你不知道的 JS 错误和调用栈常识](https://zhuanlan.zhihu.com/p/25644447)
