@@ -2,23 +2,26 @@
 
 > 迭代器是一种支持(类)指针的结构, 它可以遍历集合的每一个元素. 迭代器需要保留上一次成功调用的状态和下一次成功调用的状态, 也就是他知道来自哪里和将要去向哪里.
 
-|          | Ruby                                                          | Javascript                | Go                        | Lua                                |
-|----------|---------------------------------------------------------------|---------------------------|---------------------------|------------------------------------|
-| String   | `each_byte`<br>`each_char`<br>`each_codepoint`<br>`each_line` | ES6 Iterator              | `for i, v := range str {` | `for i = 1, #str do ... end`       |
-| Array    | mixin Enumerable<br>`each_index`                              | ES6 Iterator<br>`forEach` | `for i, v := range arr {` | `for k, v in ipairs(a) do ... end` |
-| Hash/Map | mixin Enumerable<br>`each_key`<br>`each_pair`<br>`each_value` | ES6 Iterator<br>`forEach` | `for k, v := range m {`   | `for k, v in pairs(m) do ... end`  |
-| Set      | mixin Enumerable<br>`each_key`<br>`each_pair`<br>`each_value` | ES6 Iterator<br>`forEach` | 内置无Set[^注1]           | 内置无Set[^注2]                    |
+|          | Ruby                                                          | Javascript                                         | Go                        | Lua                                |
+|----------|---------------------------------------------------------------|----------------------------------------------------|---------------------------|------------------------------------|
+| String   | `each_byte`<br>`each_char`<br>`each_codepoint`<br>`each_line` | ES6 Iterator<br>`for (let c of 'foo') {`           | `for i, v := range str {` | `for i = 1, #str do ... end`       |
+| Array    | mixin Enumerable<br>`each_index`                              | ES6 Iterator<br>`for(let v of arr) {`<br>`forEach` | `for i, v := range arr {` | `for k, v in ipairs(a) do ... end` |
+| Hash/Map | mixin Enumerable<br>`each_key`<br>`each_pair`<br>`each_value` | ES6 Iterator<br>`forEach`                          | `for k, v := range m {`   | `for k, v in pairs(m) do ... end`  |
+| Set      | mixin Enumerable<br>`each_key`<br>`each_pair`<br>`each_value` | ES6 Iterator<br>`forEach`                          | 内置无Set[^注1]           | 内置无Set[^注2]                    |
 
 
 <!--
 TODO: js Object 只能for in
 TODO: 遍历格式写完整
 -->
-在Ruby中mixin Enumerable的类, 需要实现each方法.
 
-在ES6中, 实现了Iterator接口的数据结构可以使用`for of`迭代器, 原生具备Iterator接口的数据结构有: String, Array, Set, Map.
+* 在Ruby中mixin Enumerable的类, 需要实现each方法.
 
-上表中, Hash/Map在Javascript中, 指的是ES6提供的Map, ES5中的Object迭代只能使用`for in`进行遍历.
+* Javascript 提供的`forEach`期望参数是function, 因此无法使用`break` `continue`
+
+* 在ES6中, 实现了Iterator接口的数据结构可以使用`for of`迭代器, 原生具备Iterator接口的数据结构有: String, Array, Set, Map.
+
+* 上表中, Hash/Map在Javascript中, 指的是ES6提供的Map, ES5中的Object迭代只能使用`for in`进行遍历.
 
 ---
 
