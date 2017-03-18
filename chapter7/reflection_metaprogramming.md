@@ -45,6 +45,45 @@ Proxy 的应用场景举例:
 
 [ECMAScript 6简介: Reflect](http://es6.ruanyifeng.com/#docs/reflect)
 
+#### ES5 Object.defineProperty
+
+> Object.defineProperty(obj, prop, descriptor)
+
+* 作用: 直接在一个对象上定义一个新的属性，或者是修改已存在的属性
+* 参数:
+  * obj：必需, 目标对象
+  * prop：必需, 需定义或修改的属性的名字
+  * descriptor：必需, 描述符, 包括属性描述符(value, writable, configurable, enumerable)和存取描述符(get, set)
+  * set: 可选, 该属性的setter
+  * get: 可选, 该属性的getter
+* 返回值: 目标对象, 即第一个参数
+
+**属性描述符**:
+
+|              | 含义           | 默认值    | 作用                                                                                                           |
+|--------------|----------------|-----------|----------------------------------------------------------------------------------------------------------------|
+| value        | 属性的值       | undefined |                                                                                                                |
+| writable     | 属性是否可写   | true      | 如果设置成 false，则任何对该属性改写的操作都无效（但不会报错）                                                 |
+| configurable | 属性是否可配置 | true      | 如果为false，则任何尝试删除/修改目标属性, 或修改属性特性（writable, configurable, enumerable）的行为将被无效化 |
+| enumerable   | 属性是否可枚举 | true      | 如果设为false, 则在for-in循环中, 在Object.keys中, 都不能列举出来                                               |
+
+注意, 以上默认值是指的普通属性的配置默认值, 如果是用`Object.defineProperty` 设置属性, 那么以上配置是从第三个参数`descriptor`中获取, 如果不传就是undefined/false
+
+**存取器描述**
+
+* 当使用了getter或setter方法，不允许使用writable和value这两个属性
+* get或set不是必须成对出现，任写其一就可以
+* getter, setter 中的this指向目标对象
+
+getter/setter常见使用场景:
+
+* 读取属性时改变对象状态, 如[chai](http://chaijs.com/)的链式调用: `expect(foo).to.not.equal('bar')`中, to, not都是在对应的getter中进行对象属性操作
+* 增加属性获取和修改时的信息
+
+#### 获取描述符:
+
+> Object.getOwnPropertyDescriptor(obj, prop)
+
 ---
 
 ### 3. Go
