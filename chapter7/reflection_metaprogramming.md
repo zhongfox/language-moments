@@ -54,8 +54,6 @@ Proxy 的应用场景举例:
   * obj：必需, 目标对象
   * prop：必需, 需定义或修改的属性的名字
   * descriptor：必需, 描述符, 包括属性描述符(value, writable, configurable, enumerable)和存取描述符(get, set)
-  * set: 可选, 该属性的setter
-  * get: 可选, 该属性的getter
 * 返回值: 目标对象, 即第一个参数
 
 **属性描述符**:

@@ -47,8 +47,18 @@
 
 ---
 
-参考资料
+以上分类出自 [Error Handling in Node.js](https://www.joyent.com/node-js/production/design/errors) 虽然这篇文章是讲node.js异常处理, 但是前半部分异常分类以及应对, 其实完全适用于其他平台.
 
-* [Error Handling in Node.js](https://www.joyent.com/node-js/production/design/errors) 虽然这篇文章是讲node.js异常处理, 但是前半部分异常分类以及应对, 其实完全适用于其他平台.
+来看看[Core Java]()中对Exception的分类说明:
+
+> Exception. 这个层次结构又分解为两个分支: 一个分支派生于RuntimeException; 另一个分支包含其他异常.
+
+> 划分两个分支的规则是: 由程序错误导致的异常属于RuntimeException; 而程序本身没有问题, 但由于像IO错误这类问题导致的异常属于其他异常.
+
+> 如果出现RuntimeException异常, 那么一定是你的问题.
+
+虽然术语不一致, 但可以看出, Core Java中RuntimeException就是程序员错误(Programmer errors), 其他异常属于操作错误(Operational errors). 处理异常的规则完全可以根据异常分类在其他语言平台应用.
+
+---
 
 [comment]: <> (http://code.oneapm.com/nodejs/2015/04/13/nodejs-errorhandling/)

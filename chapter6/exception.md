@@ -9,6 +9,10 @@
 | 调用栈中异常冒泡 | Y               | Y                                | Y                           | Y                                  |
 | 调用栈           | `Kernel#caller` | `console.trace()`                | `debug.PrintStack()`        | `debug.traceback()`                |
 
+Lua 中错误处理常常用到函数`assert (v [, message])`, v是前置运算的返回值. 如`result = assert(容错函数调用)`, 容错函数在异常情况下返回一个nil, assert期望值v是非false/nil, 否则抛出异常.
+
+Node.js的assert模块也可以做同样的事情: `assert(value[, message])`, 不过assert在node社区中主要用于单元测试, 很少用于业务逻辑.
+
 ---
 
 ### 1. Ruby
