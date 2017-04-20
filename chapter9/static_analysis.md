@@ -166,6 +166,15 @@ module.exports = {
 * [ESLint 中文](http://eslint.cn/)
 * [利用 ESLint 检查代码质量](http://morning.work/page/maintainable-nodejs/getting-started-with-eslint.html)
 
+#### [vim-fixmyjs](https://github.com/ruanyl/vim-fixmyjs)
+
+```
+Plugin 'ruanyl/vim-fixmyjs'
+let g:fixmyjs_rc_path = '~/.eslintrc.js'
+```
+
+在vim中执行`:Fixmyjs`可以自动fix eslint中支持autofix的错误
+
 ---
 
 ### 3. Go
