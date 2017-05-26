@@ -58,6 +58,8 @@
 
 虽然术语不一致, 但可以看出, Core Java中RuntimeException就是程序员错误(Programmer errors), 其他异常属于操作错误(Operational errors). 处理异常的规则完全可以根据异常分类在其他语言平台应用.
 
+再看看 Golang错误和异常处理的正确姿势: <http://www.jianshu.com/p/f30da01eea97>
+
 ---
 
 [comment]: <> (http://code.oneapm.com/nodejs/2015/04/13/nodejs-errorhandling/)
