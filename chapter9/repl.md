@@ -35,6 +35,19 @@
 
 第三方扩展: [gore](https://github.com/motemen/gore)
 
+在此repl中导入package需要特殊的命令`:import`
+
+还可以用`:print`打印当前输入的源码
+
+```
+:import <package path>  Import package
+:print                  Show current source
+:write [<filename>]     Write out current source to file
+:doc <expr or pkg>      Show document (requires godoc)
+:help                   List commands
+:quit                   Quit the session
+```
+
 ---
 
 <!--
