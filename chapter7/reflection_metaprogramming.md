@@ -108,6 +108,37 @@ ff := reflectValue.Interface().(float64) //float64
 
 #### 反射第三定律: 如果要修改「反射类型对象」, 其值必须是「可写的」（settable）
 
+todo
+
+#### 使用笔记
+
+reflect.Value 是一个type, 用于获取类型信息
+
+reflect.Type 是一个接口, 用于对对象数据的读写
+
+反射能探知到当前包或者外部包的非导出成员.
+
+```go
+typ := reflect.TypeOf(MyData{})    // reflect.Type
+fmt.Printf("Struct is %d bytes long\n", typ.Size()) // 存储长度
+n := typ.NumField() // 结构体专用, 字段个数
+for i := 0; i < n; i++ {
+  field := typ.Field(i)  // 指定字段类型
+  fmt.Printf("%s at offset %v, size=%d, align=%d\n",
+    field.Name, field.Offset, field.Type.Size(), field.Type.Align())
+
+  field.Tag // StructTag
+
+  // `species:"gopher" color:"blue"`
+  fmt.Println(field.Tag.Get("color"), field.Tag.Get("species"))
+}
+```
+
+`Type#Elem()`: 指针, 数组, 切片, 字段(值), 通道的反射类型, 调用Elem, 获取元素对应的反射类型.
+
+`Type`#`FieldByName(name string) (StructField, bool)`
+`func (v Value) FieldByName(name string) Value`
+
 ---
 
 ### 4. Lua

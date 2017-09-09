@@ -28,8 +28,17 @@
 
 ---
 
-
 ### Go
+
+只能为当前包, 以及除接口和(指针???)以外的任何类型定义方法.
+
+| 分类        | 分类                        | 特点                   |
+|-------------|-----------------------------|------------------------|
+| named type  | pre-declared, 如 int        | 可以定义自己的method   |
+| named type  | type declared new type      | 可以定义自己的method   |
+| unamed type | type literal, 如*int ,[]int | 不可以定义自己的method |
+
+但是, 一个type定义方法必须在该类型的所在的package , int 的scope （作用域是）universe (全局的)，int 是语言层面预声明的，其属于任何package,也就没有办法为其增加method.
 
 ---
 

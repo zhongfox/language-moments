@@ -2,12 +2,12 @@
 
 > 迭代器是一种支持(类)指针的结构, 它可以遍历集合的每一个元素. 迭代器需要保留上一次成功调用的状态和下一次成功调用的状态, 也就是他知道来自哪里和将要去向哪里.
 
-|          | Ruby                                                          | Javascript                                         | Go                        | Lua                                |
-|----------|---------------------------------------------------------------|----------------------------------------------------|---------------------------|------------------------------------|
-| String   | `each_byte`<br>`each_char`<br>`each_codepoint`<br>`each_line` | ES6 Iterator<br>`for (let c of 'foo') {`           | `for i, v := range str {` | `for i = 1, #str do ... end`       |
-| Array    | mixin Enumerable<br>`each_index`                              | ES6 Iterator<br>`for(let v of arr) {`<br>`forEach` | `for i, v := range arr {` | `for k, v in ipairs(a) do ... end` |
-| Hash/Map | mixin Enumerable<br>`each_key`<br>`each_pair`<br>`each_value` | ES6 Iterator<br>`forEach`                          | `for k, v := range m {`   | `for k, v in pairs(m) do ... end`  |
-| Set      | mixin Enumerable<br>`each_key`<br>`each_pair`<br>`each_value` | ES6 Iterator<br>`forEach`                          | 内置无Set[^注1]           | 内置无Set[^注2]                    |
+|          | Ruby                                                          | Javascript                                         | Go                              | Lua                                |
+|----------|---------------------------------------------------------------|----------------------------------------------------|---------------------------------|------------------------------------|
+| String   | `each_byte`<br>`each_char`<br>`each_codepoint`<br>`each_line` | ES6 Iterator<br>`for (let c of 'foo') {`           | `for i, v := range str {`       | `for i = 1, #str do ... end`       |
+| Array    | mixin Enumerable<br>`each_index`                              | ES6 Iterator<br>`for(let v of arr) {`<br>`forEach` | `for i, v := range arr/slice {` | `for k, v in ipairs(a) do ... end` |
+| Hash/Map | mixin Enumerable<br>`each_key`<br>`each_pair`<br>`each_value` | ES6 Iterator<br>`forEach`                          | `for k, v := range someMap {`   | `for k, v in pairs(m) do ... end`  |
+| Set      | mixin Enumerable<br>`each_key`<br>`each_pair`<br>`each_value` | ES6 Iterator<br>`forEach`                          | 内置无Set[^注1]                 | 内置无Set[^注2]                    |
 
 
 <!--
