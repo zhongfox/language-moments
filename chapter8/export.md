@@ -33,6 +33,21 @@ Node利用包装函数进行模块加载, 包装函数的其中2个形参是`exp
 
 * 内部包(在internal目录下的包): 仅可以被该包父目录下的包访问
 
+* 嵌入类型的字段或者属性, 不受嵌入类型本身可见性影响:
+
+  ```go
+  type Admin struct {
+    user             // 嵌入不可见类型
+  }
+
+  type user struct { // 不可见
+    Name string      // 可见的属性
+  }
+
+  a := Admin{"zhongfox"}
+  a.Name             // 在包外可以访问
+  ```
+
 ---
 
 ### 4. Lua
