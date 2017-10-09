@@ -106,7 +106,49 @@ Object可以使用`for in`迭代属性, 可迭代的属性值包括原型链的�
 
 ### 3. Go
 
-TODO
+
+for range 中迭代变量会进行复制, 而且地址不变
+
+
+```go
+var msgs []func()
+array := []string{
+  "1", "2", "3", "4",
+}
+for _, e := range array{
+    msgs = append(msgs, func(){
+    fmt.Println(e)
+  })
+}
+for _, v := range msgs{
+  v()
+}
+```
+
+以上代码输出4个4.
+
+
+```go
+type student struct {
+  Name string
+  Age  int
+}
+
+func pase_student() {
+  m := make(map[string]*student)
+  stus := []student{
+    {Name: "zhou", Age: 24},
+    {Name: "li", Age: 23},
+    {Name: "wang", Age: 22},
+  }
+  for _, stu := range stus {
+    m[stu.Name] = &stu
+  }
+}
+```
+
+以上代码中, m中数据指向同一地址. 最终该指针的值为遍历的最后一个struct的值拷贝.
+
 
 ---
 
