@@ -95,7 +95,11 @@ nil 是无类型的预定义值, 而不是关键字, 预定义值在语法上可
 
 空指针, 指向nil, 亦可以说是什么都没有
 
+nil指针的变量, 仍然可以调用其类型方法集中的方法.
+
 ##### slice
+
+一个为nil的slice，除了不能索引外，其他的操作都是可以的.
 
 形如`s := make([]byte,5)` 的切片内部构造如下:
 
@@ -117,7 +121,21 @@ nil 是无类型的预定义值, 而不是关键字, 预定义值在语法上可
 
 >ptr nil
 
+#### map
+
+对于nil的map，可以简单把它看成是一个只读的map，不能进行写操作，否则就会panic
+
+#### channel
+
+关闭一个nil的channel会导致程序panic
+
+nil的channel是永远阻塞的
+
 #### interface
+
+interface并不是一个指针，它的底层实现由两部分组成，一个是类型，一个值，也就是类似于：(Type, Value)
+
+只有当类型和值都是nil的时候，才等于nil
 
 `(type, value)` 输出结果是 `<nil> <invalid reflect.Value>`, 可以看到是无类型(untyped)
 

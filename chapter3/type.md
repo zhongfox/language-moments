@@ -120,21 +120,24 @@ true
 
 ### 3. Go
 
-* 整数: int, unit, int16, uint16, int32, uint32, int64, uint64
-* 浮点数: float32, float64
-* 复数: complex64, complex128
-* 字符: byte(uint8的别名), rune(int32的别名)
-* bool
-* string
-* error
-* function
-* uintptr
+* 原始类型: (不可变)
+  * 整数: int, unit, int16, uint16, int32, uint32, int64, uint64
+  * 浮点数: float32, float64
+  * 复数: complex64, complex128
+  * 字符: byte(uint8的别名), rune(int32的别名)
+  * bool
+  * string
+  * uintptr
+  * pointer
+* 引用类型: (包指向底层数据结构的指针)
+  * map
+  * slice
+  * channel
+  * function
+  * interface
 * 复合类型:
-  * pointer, array, struct, interface
-  * 引用类型:
-    * map
-    * slice
-    * channel
+  * array: 数组长度是类型的一部分, `[3]int` 和 `[4]int` 不算同一个类型
+  * struct
 
 #### 底层类型
 

@@ -112,8 +112,11 @@ map.set({}, 4) // Map { 'x' => 2, {} => 3, {} => 4 } 不会覆盖
 ### 3. Go
 
 * len: 返回键值对数量, 无法使用cap
-* map的value成员是not addressable, 因此无法直接修改, 只能先返回value, 修改后再赋值到key上
 * 读取方式: `value, ok := someMap[key]` ok 表示key的存在性
+* 当map为nil的时候，不能添加值, 但是可读
+* map的value成员是not addressable, 因此无法直接修改, 只能先返回value, 修改后再赋值到key上
+
+map中的元素不是一个变量，不能对map的元素进行取地址操作，禁止对map进行取地址操作的原因可能是map随着元素的增加map可能会重新分配内存空间，这样会导致原来的地址无效.
 
 ---
 
