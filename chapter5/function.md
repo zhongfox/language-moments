@@ -175,6 +175,23 @@ var sum = function (x, y) {
 
 ### 3. Go
 
+在Go语言中，函数被看做是第一类值：(first-class values)：函数和其他值一样，可以被赋值，可以传递给函数，可以从函数返回。
+
+Go语言函数有两点很特别：
+
+* 函数值类型不能作为map的key
+* 函数值之间不可以比较，函数值只可以和nil作比较，函数类型的零值是nil
+
+以下代码不能通过编译:
+
+```go
+func main(){
+	array := make(map[func ()int]int)
+	array[func()int{return 12}] = 10
+	fmt.Println(array)
+}
+```
+
 #### 内建函数
 
 并非所有的GO函数都是一等公民, 内建函数(builtin/builtin.go)不能作为函数值进行参数传递, 事实上这些内建类型并不真的在builtin包中，只是为了生成文档的需要.
@@ -198,6 +215,8 @@ var sum = function (x, y) {
 * 支持命名返回值
 * defer 延迟调用
 
+TODO [Golang中defer、return、返回值之间执行顺序的坑](https://my.oschina.net/henrylee2cn/blog/505535)
+
 ---
 
 ### 4. Lua
@@ -218,4 +237,5 @@ Lua要求break和return只能出现在block的结尾一句, 也就是chunk的最
 [comment]: <> (单独写一个匿名函数)
 [comment]: <> (ruby 方法中再定义方法)
 [comment]: <> (lua 中的函数可以使lua或者其他语言编写, 使用起来都一样)
+[comment]: <> (https://i6448038.github.io/2017/10/06/GolangDetailsTwo/)
 
