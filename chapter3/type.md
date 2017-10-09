@@ -161,6 +161,48 @@ true
 
 空struct不占空间, 参考: [The empty struct](https://dave.cheney.net/2014/03/25/the-empty-struct)
 
+#### 值类型
+
+**值** 不能赋值, 也不能取地址.
+
+```go
+type Employee struct {
+    ID int
+    Name string
+    Address string
+    DoB time.Time
+    Position string
+    Salary int
+    ManagerID int
+}
+func EmployeeByID(id int) Employee {
+    return Employee{ID:id}
+}
+func main(){
+    EmployeeByID(1).Salary = 0 // cannot assign to EmployeeByID(1).Salary
+}
+```
+
+> 在本例子中，函数EmployeeById(id int)返回的是值类型的，它的取值EmployeeByID(1).Salary也是一个值类型；值类型是什么概念？值类型就是和赋值语句var a = 1或var a = hello world等号=右边的1、Hello world是一个概念，他是不能够被赋值的，只有变量能够被赋值
+
+如果函数返回的是struct指针, 是可以直接赋值
+
+```go
+type D int
+
+func (d *D) p() {
+  fmt.Println(d)
+}
+func main() {
+  x := 43
+  // cannot call pointer method on D(x)
+  // cannot take the address of D(x)
+  D(x).p()
+}
+```
+
+值 也不能取地址.
+
 ---
 
 ### 4. Lua
