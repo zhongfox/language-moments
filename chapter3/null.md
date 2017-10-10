@@ -95,7 +95,31 @@ nil 是无类型的预定义值, 而不是关键字, 预定义值在语法上可
 
 空指针, 指向nil, 亦可以说是什么都没有
 
-nil指针的变量, 仍然可以调用其类型方法集中的方法.
+nil指针的变量, 仍然可以调用其类型方法集中的方法, 以下代码可以执行成功.
+
+```go
+package main
+
+import (
+  "fmt"
+)
+
+type littleGirl struct {
+  Name string
+  Age  int
+}
+
+func (this *littleGirl) changeName(name string) {
+  // this.Name = name // nil 指针不能进行字段操作
+  fmt.Println(name)
+}
+func main() {
+  little := &littleGirl{Name: "Rose", Age: 1}
+  little = nil
+  little.changeName("fox")
+  fmt.Println(little)
+}
+```
 
 ##### slice
 
