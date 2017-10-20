@@ -73,11 +73,48 @@ for (let char of '语言的学习') {
 
 ### 3. Go
 
+> string is the set of all strings of 8-bit bytes, conventionally but not necessarily representing UTF-8-encoded text. A string may be empty, but not nil. Values of string type are immutable.
+
+字符串是一系列8位字节的集合，通常但不一定代表UTF-8编码的文本。字符串可以为空，但不能为nil。而且字符串的值是不能改变的, 定义大致如下:
+
+```go
+type stringStruct struct {
+  str unsafe.Pointer
+  len int
+}
+```
+
+其中str指向了一个byte数组.
+
 * 内建的len方法可以得到字符串的长度，每个字节可以根据索引得到，不能像 C 语言一样得到某个字节的地址，&s[i]这样做是非法的.
 
 * 加法拼接字符串, 每次需要重新分配内存, 在构建超大字符串时, 性能低下
 
   优化: 使用`strings.Join(a []string, sep string)` 会一次性计算并分配需要的内存
+
+#### []byte
+
+byte是uint8, 定义如下
+
+```go
+type slice struct {
+	array unsafe.Pointer
+	len   int
+	cap   int
+}
+```
+
+#### string和[]byte 的区别
+
+* string可以直接比较，而[]byte不可以，所以[]byte不可以当map的key值
+* 因为无法修改string中的某个字符，需要粒度小到操作一个字符时，用[]byte
+* string值不可为nil，所以如果你想要通过返回nil表达额外的含义，就用[]byte
+* []byte切片这么灵活，想要用切片的特性就用[]byte
+* 需要大量字符串处理的时候用[]byte，性能好很多
+
+string和[]byte的相互转换:
+* 将string转为[]byte: `[]byte(string)`
+* 将[]byte转为string: `string([]byte)`
 
 ---
 
@@ -98,6 +135,7 @@ Lua 标准库的吝啬, 在string的API上可见一斑, 很多其他语言操作
 参考资料:
 
 * [lua-users Sample Code](http://lua-users.org/wiki/SampleCode) 有很多不错的lua扩展
+* [golang string和[]byte的对比](https://sheepbao.github.io/post/golang_byte_slice_and_string/)
 
 
 
