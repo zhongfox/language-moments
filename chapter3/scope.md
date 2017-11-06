@@ -140,6 +140,40 @@ fmt.Println(num)   // 8
 
 Go 语言支持闭包, 和javascript很像, 例子就省了.
 
+关于 `:=` 作用域的坑:
+
+```
+package main
+import (
+    "fmt"
+)
+type A struct {
+    s string
+}
+func main() {
+    var a *A
+    if check(a) {
+        a, err := generate()
+        fmt.Println(a.s, err)
+    }
+    fmt.Println(a.s) // panic: runtime error: invalid memory address or nil pointer dereference
+}
+func generate() (*A, error) {
+    return &A{s: "b"}, nil
+}
+func check(a *A) bool {
+    return true
+}
+```
+
+以上代码会导致`invalid memory address`
+
+代码源码意图是 `:=` 只创造新变量err, 而变量a沿用上层作用域定义.
+
+但实际情况是, 对于使用`:=`定义的变量, 如果新变量与那个同名已定义变量不在一个作用域中时，那么golang会重新定义这个变量, 这就是导致这个问题的真凶.
+
+导致以上异常的原因是`:=`
+
 ---
 
 ### 4. Lua
@@ -152,4 +186,9 @@ Go 语言支持闭包, 和javascript很像, 例子就省了.
 
 Lua全局变量不需要声明, 给一个变量赋值后就创建了全局变量(不使用local)
 
----
+----
+
+参考资料:
+
+* [go语言作用域踩坑](http://michaelyou.github.io/2017/11/03/go-scope/)
+
