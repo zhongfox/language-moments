@@ -79,13 +79,36 @@ a.object_id == b.object_id
 
 Go是强类型语言, 只有同一类型下的值才能比较.
 
-#### Function
+在 Go 中, 两个不同可比较类型的两个值只能在一个值可以隐式转换为另一种类型的情况下进行比较。具体来说, 有两个案例两个不同的值可以比较:
 
-函数只能判断是否为nil, 不支持其他比较操作
+* 两个值之一的类型是另一个的基础类型。
+* 两个值之一的类型实现了另一个值的类型 (必须是接口类型)。
 
-#### Slice
+nil值比较并没有脱离上述规则。
 
-Slice只能判断是否为nil, 不支持其他比较操作
+```go
+type IntPtr *int
+fmt.Println(IntPtr(nil) == (*int)(nil))         //true
+fmt.Println((interface{})(nil) == (*int)(nil))  //false
+```
+
+#### 不可比类型
+
+map、slice和函数类型是不可比较类型，它们有一个别称为不可比拟的类型，所以比较它们的nil亦是非法的
+
+```go
+var v1 []int = nil
+var v2 []int = nil
+fmt.Println(v1 == v2) // slice can only be compared to nil
+fmt.Println((map[string]int)(nil) == (map[string]int)(nil)) //map can only be compared to nil
+fmt.Println((func())(nil) == (func())(nil)) //func can only be compared to nil
+```
+
+不可比的类型的值缺是可以与「纯nil」进行比较
+
+#### 不可比类型 Function/Slice/Map
+
+函数, Slice, Map 只能判断是否为nil, 不支持其他比较操作
 
 #### Array
 
