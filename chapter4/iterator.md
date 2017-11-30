@@ -106,9 +106,7 @@ Object可以使用`for in`迭代属性, 可迭代的属性值包括原型链的�
 
 ### 3. Go
 
-
 for range 中迭代变量会进行复制, 而且地址不变
-
 
 ```go
 var msgs []func()
@@ -149,9 +147,26 @@ func pase_student() {
 
 以上代码中, m中数据指向同一地址. 最终该指针的值为遍历的最后一个struct的值拷贝.
 
+#### Generic for
+
+* for循环不支持以逗号为间隔的多个赋值语句，必须使用平行赋值的方式来初始化多
+* 循环嵌套循环时，可以在break 后指定标签。用标签决定哪个循环被终止
+
+  ```go
+  func main() {
+  J:
+    for j := 0; j < 5; j++ {
+      for i := 0; i < 10; i++ {
+        if i > 6 {
+          break J //现在终止的是j 循环，而不是i的那个
+        }
+        fmt.Println(i)
+      }
+    }
+  }
+  ```
 
 ---
-
 
 ### 4. Lua
 
