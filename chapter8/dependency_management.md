@@ -1,10 +1,10 @@
 # 8.6 依赖管理
 
-|                  | Ruby         | Node.js             | Go         | Lua  |
-|------------------|--------------|---------------------|------------|------|
-| 项目依赖管理工具 | bundler      | npm                 | glide      | -    |
-| 依赖规格文件     | Gemfile      | package.json        | glide.yaml | -    |
-| 依赖规格lock文件 | Gemfile.lock | npm-shrinkwrap.json | glide.lock | TODO |
+|                  | Ruby         | Node.js                               | Go         | Lua  |
+|------------------|--------------|---------------------------------------|------------|------|
+| 项目依赖管理工具 | bundler      | npm                                   | glide      | -    |
+| 依赖规格文件     | Gemfile      | package.json                          | glide.yaml | -    |
+| 依赖规格lock文件 | Gemfile.lock | npm-shrinkwrap.json/package-lock.json | glide.lock | TODO |
 
 ---
 
@@ -50,6 +50,28 @@ A
 NPM的包版本声明使用semver机制, 但是semver无法完全保证「项目的直接依赖的包接口和行为都是稳定的」, 原因可能是包的维护者没有遵守semver机制(minor version 需要向下兼容), 当然也有可能是因为出现了bug.
 
 无论如何Node.js的依赖管理容易出现这样的场景, 在`package.json`中声明版本`^1.2.0`, 在不同的机器下, minor version可能是任何版本.
+
+##### npm 5 package-lock.json
+
+npm 5 增加了 package-lock.json, 主要特性:
+
+* package-lock.json 文件中已经记录了整个 node_modules 文件夹的树状结构，甚至连模块的下载地址都记录了, 基于lock文件重装速度会很快.
+
+* `npm install xxx`
+
+  使用npm install xxx命令安装模块时，不再需要--save选项，会自动将模块依赖信息保存到 package.json 文件 (但此文件需要先手动创建)
+
+  安装模块操作（改变 node_modules 文件夹内容）会生成或更新 package-lock.json 文件
+
+* `npm install`
+
+  如果不存在 package-lock.json 文件，它会根据安装模块后的 node_modules 目录结构来创建
+
+  `npm install`时 如果已经存在 package-lock.json 文件，则它只会根据 package-lock.json 文件指定的结构来下载模块，并不会理会 package.json 文件
+
+  如果手动修改了 package.json 文件中已有模块的版本，直接执行npm install不会安装新指定的版本，只能通过npm install xxx@yy更新
+
+* 参数`--no-save` TODO
 
 ---
 
