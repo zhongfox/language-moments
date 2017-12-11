@@ -10,6 +10,8 @@
 
 ### Ruby Bundler 和 Node.js NPM 关于 版本锁定的差异
 
+注: 此对比写于 npm 5 发布之前, npm 5之前的版本也提供了lock文件 package-lock.json.
+
 Bundler 和 NPM 在使用上最大的差异, 在于前者使用了lock文件`Gemfile.lock`锁定版本, 而后者默认是不会使用lock文件的, 虽然NPM提供了`npm-shrinkwrap.json`作为lock文件, 但是并没有bundler完善, 社区接收度也不高.
 
 任何依赖管理的工具, 终极的目的都是「**保证项目的直接依赖的包接口和行为都是稳定的**」, 而如Bundler、Glide「**锁定项目的每个直接或间接依赖的包的版本**」只是达成这个目的的其中一种实现. 而NMP并不是这样实现的, 这与社区个性(哲学)相关, 也和他们的模块加载机制相关.
