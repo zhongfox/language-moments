@@ -121,6 +121,36 @@ func main() {
 }
 ```
 
+但是以下代码却要报错:
+
+```go
+type Point struct {
+  X, Y float64
+}
+
+func (p *Point) Abs() float64 {
+  //panic: runtime error: invalid memory address or nil pointer dereference
+  return math.Sqrt(p.X*p.X + p.Y*p.Y)
+}
+
+func main() {
+  var p *Point
+  fmt.Println(p.Abs())
+}
+```
+
+> If x is nil, an attempt to evaluate *x will cause a run-time panic
+
+
+new可以初始化指针:
+
+```go
+func main() {
+    var p *Point = new(Point)
+    fmt.Println(p.Abs())
+}
+```
+
 ##### slice
 
 一个为nil的slice，除了不能索引外，其他的操作都是可以的.
@@ -162,6 +192,13 @@ interface并不是一个指针，它的底层实现由两部分组成，一个�
 只有当类型和值都是nil的时候，才等于nil
 
 `(type, value)` 输出结果是 `<nil> <invalid reflect.Value>`, 可以看到是无类型(untyped)
+
+**划重点**
+
+* slice: 能写不能读
+* map: 能读不能写
+* chan: 不能读不能写(阻塞但不报错)
+* pointer: 可以调用方法但是不能访问内容(字段等)
 
 ---
 

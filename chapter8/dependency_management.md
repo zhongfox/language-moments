@@ -102,7 +102,7 @@ $GOPATH/src/myProject (Your project)
                 |-- ... etc.
 ```
 
-#### 规格文件: `glide.yaml`
+##### 规格文件: `glide.yaml`
 
 重要的规格说明:
 
@@ -117,6 +117,60 @@ $GOPATH/src/myProject (Your project)
   * os
   * arch
 
+#### Dep
+
+<https://github.com/golang/dep>
+
+安装: `brew install dep`
+
+工作流:
+
+1) dep init
+
+* 利用gps分析当前代码包中的包依赖关系
+* 将分析出的项目包的**直接依赖**写入Gopkg.toml
+* 将项目依赖的所有第三方包（包括**直接依赖**和**传递依赖**transitive dependency）在满足Gopkg.toml中约束范围内的最新version/branch/revision信息写入Gopkg.lock文件中
+* 创建root vendor目录，并且以Gopkg.lock为输入，将其中的包（精确checkout 到revision）下载到项目root vendor下面
+
+之后可以使用go build/install进行程序构建
+
+2) 提交Gopkg.toml和Gopkg.lock 到代码库
+
+3) dep ensure
+
+对于vendor不入代码库的情况, 其他环境需要rebuild依赖.
+
+ensure成功后，你就可以进行reproduceable build了
+
+会先根据Gopkg.toml同步Gopkg.lock, 然后再同步vendor
+
+此命令也适用于修改Gopkg.toml后进行依赖更新
+
+4) 写入新依赖
+
+`dep ensure -add github.com/foo/bar`
+
+* 将依赖写入Gopkg.toml
+* 更新Gopkg.lock
+* 更新vendor
+
+5) 更新依赖
+
+使用Gopkg.toml允许的最新版本来更新Gopkg.lock 和 vendor, 适用于依赖的第三方包有更新
+
+`dep ensure -update github.com/some/project github.com/other/project`
+
+或者更新全部依赖:
+
+`dep ensure -update`
+
+##### 依赖视图
+
+`brew install graphviz`
+
+`dep status -dot | dot -T png | open -f -a /Applications/Preview.app`
+
+
 ---
 
 ### Lua
@@ -128,3 +182,4 @@ TODO
 参考资料:
 
 * [npm 没有 Gemfile.lock 这样的机制，怎么想的？](https://ruby-china.org/topics/29777#reply10)
+* [初窥dep](http://tonybai.com/2017/06/08/first-glimpse-of-dep/)

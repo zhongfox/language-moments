@@ -10,7 +10,7 @@
 | 包定义           | 由rubygem定义<br>若干源文件组合 | 由npm定义<br>若干模块组合 | 同一目录第一层源文件属于一个包 | 语言本身只有模块的概念, 没有包的概念<br>Luarocks实现了包的定义 |
 | 包管理工具       | rubygems                        | npm                       | go 工具链                      | 无                                                             |
 | 中央管理库       | <https://rubygems.org/>         | <https://www.npmjs.org/>  | github.com,goolge code等       | Luarocks: <https://luarocks.org/>                              |
-| 项目依赖管理工具 | bundler                         | npm                       | glide                          | Luarocks                                                       |
+| 项目依赖管理工具 | bundler                         | npm                       | glide/dep                      | Luarocks                                                       |
 
 除此以外, 大部分语言还存在其他的管理工具, 比如 Facebook 推出的 Node.js 包管理工具[Yarn](https://yarnpkg.com/), Go语言第三方包管理工具[godep](https://github.com/tools/godep), Lua 的 [LuaDist](http://luadist.org/) 等等.
 

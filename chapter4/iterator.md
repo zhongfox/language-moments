@@ -166,6 +166,8 @@ func pase_student() {
   }
   ```
 
+扩展阅读: [golang for语句完全指南](https://sheepbao.github.io/post/golang_for_range_complete_guide)
+
 ---
 
 ### 4. Lua
